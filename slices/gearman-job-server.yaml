@@ -1,0 +1,28 @@
+package: gearman-job-server
+
+essential:
+  - gearman-job-server_copyright
+
+slices:
+  libs:
+    essential:
+      - libboost-program-options1.83.0_libs
+      - libc6_libs
+      - libevent-2.1-7t64_libs
+      - libevent-pthreads-2.1-7t64_libs
+      - libgcc-s1_libs
+      - libhiredis1.1.0_libs
+      - libmemcached11t64_libs
+      - libmysqlclient21_libs
+      - libpq5_libs
+      - libsqlite3-0_libs
+      - libstdc++6_libs
+    contents: 
+      /usr/lib/systemd/system/gearman-job-server.service:
+      /usr/sbin/gearmand:
+      /etc/default/gearman-job-server:
+      /etc/init.d/gearman-job-server:
+      /var/log/gearman-job-server/:
+  copyright:
+    contents: 
+      /usr/share/doc/gearman-job-server/copyright:
