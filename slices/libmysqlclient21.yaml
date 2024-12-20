@@ -14,7 +14,8 @@ slices:
       - mysql-common_config
       - zlib1g_libs
     contents: 
-      /usr/lib/*-linux-gnu/libmysqlclient.so.21*:
+      /usr/lib/*-linux-*/libmysqlclient.so.21*:
+  
   copyright:
     contents: 
       /usr/share/doc/libmysqlclient21/copyright:

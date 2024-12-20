@@ -4,8 +4,15 @@ essential:
   - gearman-job-server_copyright
 
 slices:
+  bins:
+    contents: 
+      /usr/sbin/gearmand:
+
   libs:
     essential:
+        # gearman-job-server actually depends on adduser as well to create and
+        # remove a user during package install/removal - however we don't 
+        # support this currently so adduser is not added here.
       - libboost-program-options1.83.0_libs
       - libc6_libs
       - libevent-2.1-7t64_libs
@@ -17,12 +24,11 @@ slices:
       - libpq5_libs
       - libsqlite3-0_libs
       - libstdc++6_libs
+
+  services:
     contents: 
       /usr/lib/systemd/system/gearman-job-server.service:
-      /usr/sbin/gearmand:
-      /etc/default/gearman-job-server:
-      /etc/init.d/gearman-job-server:
-      /var/log/gearman-job-server/:
+
   copyright:
     contents: 
       /usr/share/doc/gearman-job-server/copyright:

@@ -10,7 +10,8 @@ slices:
       - libgcc-s1_libs
       - libssl3t64_libs
     contents: 
-      /usr/lib/*-linux-gnu/libhashkit.so.2*:
+      /usr/lib/*-linux-*/libhashkit.so.2*:
+
   copyright:
     contents: 
       /usr/share/doc/libhashkit2t64/copyright:
