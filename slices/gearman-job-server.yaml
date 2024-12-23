@@ -5,10 +5,6 @@ essential:
 
 slices:
   bins:
-    contents: 
-      /usr/sbin/gearmand:
-
-  libs:
     # gearman-job-server actually depends on adduser as well to create and
     # remove a user during package install/removal - however we don't 
     # support this currently so adduser is not added here.
@@ -24,6 +20,8 @@ slices:
       - libpq5_libs
       - libsqlite3-0_libs
       - libstdc++6_libs
+    contents: 
+      /usr/sbin/gearmand:
 
   services:
     contents: 
