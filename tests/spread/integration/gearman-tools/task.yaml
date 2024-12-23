@@ -1,0 +1,8 @@
+summary: Integration tests for gearman-tools
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices gearman-tools_bins gearman-tools_libs)"
+
+  chroot "${rootfs}/" /usr/bin/gearadmin --help
