@@ -5,4 +5,4 @@ execute: |
   # test in.
   rootfs="$(install-slices gearman-tools_bins gearman-tools_libs)"
 
-  chroot "${rootfs}/" /usr/bin/gearadmin --help
+  chroot "${rootfs}/" gearadmin --help
