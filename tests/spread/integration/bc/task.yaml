@@ -6,6 +6,7 @@ execute: |
   rootfs="$(install-slices bc_bins)"
 
   chroot "${rootfs}/" bc -h
+  x=$( echo "1+2" | chroot "${rootfs}/" bc )
   if [ "${x}" -ne 3 ]; then
     echo "bc failed 1+2"
     exit 1
