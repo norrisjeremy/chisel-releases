@@ -1,0 +1,12 @@
+summary: Integration tests for bind9-dnsutils
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices bind9-dnsutils_bins)"
+
+  chroot "${rootfs}/" delv -v
+  chroot "${rootfs}/" dig -v
+  chroot "${rootfs}/" mdig -v
+  chroot "${rootfs}/" nslookup -version
+  chroot "${rootfs}/" nsupdate -V

@@ -1,0 +1,8 @@
+summary: Integration tests for bind9-host
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices bind9-host_bins)"
+
+  chroot "${rootfs}/" host -V
