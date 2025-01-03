@@ -1,0 +1,7 @@
+summary: Integration tests for cpio
+
+execute: |
+  rootfs="$(install-slices cpio_bins)"
+
+  chroot "${rootfs}/" cpio --help
+  chroot "${rootfs}/" mt-gnu --help
