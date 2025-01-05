@@ -1,0 +1,8 @@
+summary: Integration tests for file
+
+execute: |
+  # Chisel a minimum number of slices to give us a runnable system that we can
+  # test in.
+  rootfs="$(install-slices file_bins)"
+
+  chroot "${rootfs}/" file --help

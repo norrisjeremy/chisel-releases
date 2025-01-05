@@ -1,0 +1,13 @@
+package: libmagic-mgc
+
+essential:
+  - libmagic-mgc_copyright
+
+slices:
+  libs:
+    contents:
+      /usr/lib/file/magic.mgc:
+  
+  copyright:
+    contents:
+      /usr/share/doc/libmagic-mgc/copyright: 
