@@ -1,0 +1,6 @@
+summary: Integration tests for mawk
+
+execute: |
+  rootfs="$(install-slices mawk_bins)"
+
+  chroot "${rootfs}/" mawk -W version
