@@ -1,0 +1,6 @@
+summary: Integration tests for file
+
+execute: |
+  rootfs="$(install-slices file_bins)"
+
+  chroot "${rootfs}/" file --help
