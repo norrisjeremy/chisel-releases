@@ -1,0 +1,6 @@
+summary: Integration tests for iputils-tracepath
+
+execute: |
+  rootfs="$(install-slices iputils-tracepath_bins)"
+
+  chroot "${rootfs}/" tracepath -V

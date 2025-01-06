@@ -1,0 +1,15 @@
+package: iputils-tracepath
+
+essential:
+  - iputils-tracepath_copyright
+
+slices:
+  bins:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/bin/tracepath:
+
+  copyright:
+    contents:
+      /usr/share/doc/iputils-tracepath/copyright:
