@@ -1,0 +1,9 @@
+summary: Integration tests for libarchive-tools
+
+execute: |
+  rootfs="$(install-slices libarchive-tools_bins)"
+
+  chroot "${rootfs}/" bsdcat --version
+  chroot "${rootfs}/" bsdcpio --version
+  chroot "${rootfs}/" bsdtar --version
+  chroot "${rootfs}/" bsdunzip --version
