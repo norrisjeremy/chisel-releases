@@ -4,5 +4,5 @@ execute: |
   rootfs="$(install-slices mawk_bins)"
 
   echo "test" | chroot "${rootfs}/" \
-  mawk '{print ($1 == "test" ? \
-  "PASS" : "FAIL")}'
+    mawk '{ exit ( $1 == "test" ? \
+      0 : 1 ) }'
