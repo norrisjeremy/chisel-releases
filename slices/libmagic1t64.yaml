@@ -12,6 +12,8 @@ slices:
       - libmagic-mgc_data
       - zlib1g_libs
     contents:
+      /etc/magic:
+      /etc/magic.mime:
       /usr/lib/*-linux-*/libmagic.so.1*:
 
   copyright:
