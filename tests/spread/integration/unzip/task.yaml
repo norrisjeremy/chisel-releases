@@ -1,0 +1,11 @@
+summary: Integration tests for unzip
+
+execute: |
+  rootfs="$(install-slices unzip_bins)"
+
+  chroot "${rootfs}/" unzip -hh
+  chroot "${rootfs}/" unzipsfx -hh
+  echo "Hello, World" > "${rootfs}/testfile.txt"
+  gzip "${rootfs}/testfile.txt"
+  test "$( chroot ${rootfs}/ funzip  ${rootfs}/testfile.txt.gz)" \  
+    = "Hello, World"
