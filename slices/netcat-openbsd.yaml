@@ -1,0 +1,28 @@
+package: netcat-openbsd
+
+essential:
+  - netcat-openbsd_copyright
+
+slices:
+  bins:
+    essential:
+      - libbsd0_libs
+      - libc6_libs
+    contents:
+      /bin/nc.openbsd:
+      /usr/share/doc/netcat-openbsd/examples/alta:
+      /usr/share/doc/netcat-openbsd/examples/bsh:
+      /usr/share/doc/netcat-openbsd/examples/contrib/ncmeter:
+      /usr/share/doc/netcat-openbsd/examples/dist.sh:
+      /usr/share/doc/netcat-openbsd/examples/irc:
+      /usr/share/doc/netcat-openbsd/examples/iscan:
+      /usr/share/doc/netcat-openbsd/examples/ncp:
+      /usr/share/doc/netcat-openbsd/examples/probe:
+      /usr/share/doc/netcat-openbsd/examples/web:
+      /usr/share/doc/netcat-openbsd/examples/webproxy:
+      /usr/share/doc/netcat-openbsd/examples/webrelay:
+      /usr/share/doc/netcat-openbsd/examples/websearch:
+
+  copyright:
+    contents:
+      /usr/share/doc/netcat-openbsd/copyright:
