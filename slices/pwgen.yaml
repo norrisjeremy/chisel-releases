@@ -4,7 +4,7 @@ essential:
   - pwgen_copyright
 
 slices:
-  bins: 
+  bins:
     essential:
       - libc6_libs
     contents:
