@@ -4,5 +4,4 @@ execute: |
   rootfs="$(install-slices pwgen_bins)"
 
   chroot "${rootfs}/" pwgen -h
-  chroot "${rootfs}/" pwgen -s 5
-  
+  chroot "${rootfs}/" pwgen -s 5  
