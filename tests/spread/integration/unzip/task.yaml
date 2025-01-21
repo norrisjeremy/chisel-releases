@@ -1,11 +1,16 @@
 summary: Integration tests for unzip
 
 execute: |
-  rootfs="$(install-slices unzip_bins)"
+  rootfs="$(install-slices zip_bins unzip_bins)"
 
+  chroot "${rootfs}/" zip -h2
+  chroot "${rootfs}/" zipcloak -h
+  chroot "${rootfs}/" zipnote -h
+  chroot "${rootfs}/" zipsplit -h
   chroot "${rootfs}/" unzip -hh
   chroot "${rootfs}/" unzipsfx -hh
+  
   echo "Hello, World" > "${rootfs}/testfile.txt"
-  gzip "${rootfs}/testfile.txt"
-  test "$( chroot ${rootfs}/ funzip  ${rootfs}/testfile.txt.gz)" \  
-    = "Hello, World"
+  chroot "${rootfs}" zip testfile.zip testfile.txt
+  chroot "${rootfs}" unzip -p testfile.zip testfile.txt > testfile_ext.txt
+  test "$( cat testfile_ext.txt )" = '$( cat "${rootfs}/testfile.txt")'
