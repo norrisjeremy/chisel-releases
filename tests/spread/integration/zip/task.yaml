@@ -1,0 +1,9 @@
+summary: Integration tests for unzip
+
+execute: |
+  rootfs="$(install-slices zip_bins)"
+  
+  chroot "${rootfs}/" zip -h2
+  chroot "${rootfs}/" zipcloak -h
+  chroot "${rootfs}/" zipnote -h
+  chroot "${rootfs}/" zipsplit -h

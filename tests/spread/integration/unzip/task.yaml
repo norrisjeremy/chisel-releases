@@ -1,16 +1,22 @@
 summary: Integration tests for unzip
 
 execute: |
-  rootfs="$(install-slices zip_bins unzip_bins)"
-
-  chroot "${rootfs}/" zip -h2
-  chroot "${rootfs}/" zipcloak -h
-  chroot "${rootfs}/" zipnote -h
-  chroot "${rootfs}/" zipsplit -h
+  rootfs="$(install-slices base-files_bin dash_bins unzip_bins zip_bins)"
+  
   chroot "${rootfs}/" unzip -hh
   chroot "${rootfs}/" unzipsfx -hh
   
   echo "Hello, World" > "${rootfs}/testfile.txt"
   chroot "${rootfs}" zip testfile.zip testfile.txt
+  chroot "${rootfs}" zipnote testfile.zip > "${rootfs}/foo.tmp"
+  echo -e "@ This is a test comment" >> "${rootfs}/foo.tmp"
+  chroot "${rootfs}" zipnote -w testfile.zip < "${rootfs}/foo.tmp"
+  test "$(chroot foo zipnote testfile.zip | tail -n1)" = "\@ this is a test comment"
+  chroot "${rootfs}" zipsplit testfile.zip
+  chroott "${rootfs}" unzip testfil1.zip testfile.txt > "${rootfs}/testfil1.txt"
+  test '$(cat "${rootfs}/testfil1.txt")' = '$(cat "${rootfs}/testfile.txt")'
   chroot "${rootfs}" unzip -p testfile.zip testfile.txt > testfile_ext.txt
   test "$( cat testfile_ext.txt )" = '$( cat "${rootfs}/testfile.txt")'
+  chroot "${rootfs}" zipgrep "Hello" testfil1.zip
+  test "$(chroot "${rootfs}" zipinfo testfile.zip | head -n1)" = "Archive:  testfile.zip"
+  test  '$( chroot "${rootfs}" funzip testfile.zip )' = "Hello, World"
