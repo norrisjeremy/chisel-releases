@@ -17,4 +17,3 @@ execute: |
   chroot "${rootfs}" zipsplit testfile.zip
   chroott "${rootfs}" unzip testfil1.zip testfile.txt > "${rootfs}/testfil1.txt"
   test '$(cat "${rootfs}/testfil1.txt")' = '$(cat "${rootfs}/testfile.txt")'
-  chroot "${rootfs}" zipgrep "Hello" testfile.zip

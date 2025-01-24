@@ -12,3 +12,4 @@ execute: |
   test "$( cat testfile_ext.txt )" = '$( cat "${rootfs}/testfile.txt")'
   test "$(chroot "${rootfs}" zipinfo testfile.zip | head -n1)" = "Archive:  testfile.zip"
   test  '$( chroot "${rootfs}" funzip testfile.zip )' = "Hello, World"
+  chroot "${rootfs}" zipgrep "Hello" testfile.zip
