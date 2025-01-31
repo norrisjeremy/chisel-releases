@@ -1,0 +1,15 @@
+summary: Integration tests for netcat-openbsd
+
+execute: |
+  rootfs="$(install-slices netcat-openbsd_bins)"
+
+  chroot "${rootfs}/" nc.openbsd -h
+  chroot "${rootfs}/" nc.openbsd -l -p 443 &
+  ps aux | grep nc 
+  if echo $?; then
+    echo "nc installed"
+    exit 0
+  else
+    echo "nc not installed"
+    exit 1
+  fi
