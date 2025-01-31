@@ -8,7 +8,6 @@ execute: |
   ps aux | grep nc 
   if echo $?; then
     echo "nc installed"
-    exit 0
   else
     echo "nc not installed"
     exit 1
