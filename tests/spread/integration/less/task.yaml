@@ -1,0 +1,8 @@
+summary: Integration tests for less
+
+execute: |
+  rootfs="$(install-slices less_bins less_mime less_scripts)"
+
+  # less requires terminal definitions that may be difficult to setup in chroot
+  # skipping functional tests
+  chroot "${rootfs}/" less --version
