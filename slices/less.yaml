@@ -16,7 +16,7 @@ slices:
   mime:
     contents:
       /usr/lib/mime/packages/less:
-  
+
   scripts:
     essential:
       - base-files_bin
