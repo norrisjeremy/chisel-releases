@@ -1,8 +1,11 @@
 summary: Integration tests for less
 
 execute: |
-  rootfs="$(install-slices less_bins less_mime less_scripts)"
+  rootfs="$(install-slices base-files_bin dash_bins less_bins less_scripts ncurses-base_terminfo)"
 
-  # less requires terminal definitions that may be difficult to setup in chroot
-  # skipping functional tests
   chroot "${rootfs}/" less --version
+  chroot "${rootfs}/" lesskey --version
+  echo "Hello, World" > "${rootfs}/testfile.txt"
+  test "$(chroot "${rootfs}/" less -F -X -R testfile.txt)" = "Hello, World"
+  test "$(chroot foo lessecho -m: a:b )" = "a\:b"
+  

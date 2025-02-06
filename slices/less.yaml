@@ -13,14 +13,8 @@ slices:
       /usr/bin/lessecho:
       /usr/bin/lesskey:
 
-  mime:
-    contents:
-      /usr/lib/mime/packages/less:
-
   scripts:
     essential:
-      - base-files_bin
-      - dash_bins
       - less_bins
     contents:
       # symlink to lesspipe

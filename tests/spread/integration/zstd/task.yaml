@@ -1,7 +1,7 @@
 summary: Integration tests for zstd
 
 execute: |
-  rootfs="$(install-slices zstd_bins zstd_scripts)"
+  rootfs="$(install-slices base-files_bin dash_bins zstd_bins zstd_scripts)"
   
   chroot "${rootfs}/" pzstd -h
   chroot "${rootfs}/" unzstd -H
