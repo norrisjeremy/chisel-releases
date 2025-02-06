@@ -1,7 +1,7 @@
 summary: Integration tests for less
 
 execute: |
-  rootfs="$(install-slices base-files_bin dash_bins less_bins less_scripts ncurses-base_terminfo)"
+  rootfs="$(install-slices less_bins ncurses-base_terminfo)"
 
   chroot "${rootfs}/" less --version
   chroot "${rootfs}/" lesskey --version

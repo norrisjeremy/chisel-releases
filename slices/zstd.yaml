@@ -14,12 +14,9 @@ slices:
       - zlib1g_libs
     contents:
       /usr/bin/pzstd:
-      # symbolic link to zstd
       /usr/bin/unzstd: {symlink: /usr/bin/zstd}
       /usr/bin/zstd:
-      # symbolic link to zstd
       /usr/bin/zstdcat: {symlink: /usr/bin/zstd}
-      # symbolic link to zstd
       /usr/bin/zstdmt: {symlink: /usr/bin/zstd}
 
   scripts:

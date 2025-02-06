@@ -7,7 +7,7 @@ slices:
   terminfo:
     contents:
       /usr/share/terminfo/E/Eterm:
-      /usr/share/terminfo/E/Eterm-color:
+      /usr/share/terminfo/E/Eterm-color: {symlink: /usr/share/terminfo/E/Eterm}
       /usr/share/terminfo/a/ansi:
       /usr/share/terminfo/c/cons25:
       /usr/share/terminfo/c/cygwin:
@@ -22,7 +22,7 @@ slices:
       /usr/share/terminfo/p/pcansi:
       /usr/share/terminfo/r/rxvt:
       /usr/share/terminfo/r/rxvt-basic:
-      /usr/share/terminfo/r/rxvt-m:
+      /usr/share/terminfo/r/rxvt-m: {symlink: /usr/share/terminfo/r/rxvt-basic}
       /usr/share/terminfo/r/rxvt-unicode:
       /usr/share/terminfo/r/rxvt-unicode-256color:
       /usr/share/terminfo/s/screen:
@@ -44,7 +44,7 @@ slices:
       /usr/share/terminfo/x/xterm:
       /usr/share/terminfo/x/xterm-256color:
       /usr/share/terminfo/x/xterm-color:
-      /usr/share/terminfo/x/xterm-debian:
+      /usr/share/terminfo/x/xterm-debian: {symlink: /usr/share/terminfo/x/xterm}
       /usr/share/terminfo/x/xterm-mono:
       /usr/share/terminfo/x/xterm-r5:
       /usr/share/terminfo/x/xterm-r6:
