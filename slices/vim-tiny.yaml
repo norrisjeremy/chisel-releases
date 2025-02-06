@@ -11,9 +11,13 @@ slices:
       - libselinux1_libs
       - libtinfo6_libs
       - vim-common_configs
+      - vim-tiny_config
+    contents:
+      /usr/bin/vim.tiny:
+
+  config:
     contents:
       /etc/vim/vimrc.tiny:
-      /usr/bin/vim.tiny:
 
   copyright:
     contents:

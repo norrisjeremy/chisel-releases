@@ -4,11 +4,9 @@ essential:
   - vim-common_copyright
 
 slices:
-  configs:
+  config:
     contents:
       /etc/vim/vimrc:
-      /usr/bin/helpztags:
-      /usr/lib/mime/packages/vim-common:
 
   copyright:
     contents:
