@@ -1,0 +1,15 @@
+package: vim-common
+
+essential:
+  - vim-common_copyright
+
+slices:
+  configs:
+    contents:
+      /etc/vim/vimrc:
+      /usr/bin/helpztags:
+      /usr/lib/mime/packages/vim-common:
+
+  copyright:
+    contents:
+      /usr/share/doc/vim-common/copyright:
