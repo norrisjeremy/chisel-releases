@@ -10,7 +10,7 @@ slices:
       - libc6_libs
       - libselinux1_libs
       - libtinfo6_libs
-      - vim-common_configs
+      - vim-common_config
       - vim-tiny_config
     contents:
       /usr/bin/vim.tiny:
