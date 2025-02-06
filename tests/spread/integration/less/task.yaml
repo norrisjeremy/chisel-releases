@@ -8,4 +8,3 @@ execute: |
   echo "Hello, World" > "${rootfs}/testfile.txt"
   test "$(chroot "${rootfs}/" less -F -X -R testfile.txt)" = "Hello, World"
   test "$(chroot foo lessecho -m: a:b )" = "a\:b"
-  
