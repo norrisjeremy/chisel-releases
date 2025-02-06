@@ -21,7 +21,6 @@ slices:
 
   scripts:
     essential:
-      - grep_deprecated
       - zstd_bins
     contents:
       /usr/bin/zstdgrep:
