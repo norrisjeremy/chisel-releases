@@ -6,8 +6,8 @@ essential:
 slices:
   bins:
     essential:
-      - apache2_configs
       - apache2-bin_bins
+      - apache2_configs
       - apache2-data_data
       - apache2-utils_bins
       - media-types_data
@@ -308,6 +308,8 @@ slices:
         symlink: /etc/apache2/mods-available/xml2enc.load
       /etc/apache2/ports.conf:
       /etc/apache2/sites-available/**:
+      /etc/apache/sites-enabled/000-default.conf:
+        symlink: /etc/apache2/sites-available/000-default.conf
 
   copyright:
     contents:
