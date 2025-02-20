@@ -10,8 +10,11 @@ slices:
       - apache2_configs
       - apache2-data_data
       - apache2-utils_bins
+      - base-files_bin
       - media-types_data
-      - perl_bins
+      - coreutils_bins
+      - perl-base_bins
+      - perl-base_modules
       - procps_bins
     contents:
       /usr/sbin/a2disconf:
@@ -308,8 +311,9 @@ slices:
         symlink: /etc/apache2/mods-available/xml2enc.load
       /etc/apache2/ports.conf:
       /etc/apache2/sites-available/**:
-      /etc/apache/sites-enabled/000-default.conf:
+      /etc/apache2/sites-enabled/000-default.conf:
         symlink: /etc/apache2/sites-available/000-default.conf
+      /usr/share/apache2/ask-for-passphrase:
 
   copyright:
     contents:

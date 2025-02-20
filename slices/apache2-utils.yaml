@@ -6,6 +6,7 @@ essential:
 slices:
   bins:
     essential:
+      - apache-2-utils_scripts
       - libapr1t64_libs
       - libaprutil1t64_libs
       - libc6_libs
@@ -20,11 +21,19 @@ slices:
       /usr/bin/htdigest:
       /usr/bin/htpasswd:
       /usr/bin/logresolve:
-      /usr/bin/rotatelogs:
-      /usr/sbin/check_forensic:
-      /usr/sbin/httxt2dbm:
-      /usr/sbin/split-logfile:
 
   copyright:
     contents:
       /usr/share/doc/apache2-utils/copyright:
+
+  scripts:
+    essential:
+      - base-files_bin
+      - coreutils_bins
+      - grep_deprecated
+      - perl-base_bins
+    contents:
+      /usr/bin/rotatelogs:
+      /usr/sbin/check_forensic:
+      /usr/sbin/httxt2dbm:
+      /usr/sbin/split-logfile:
