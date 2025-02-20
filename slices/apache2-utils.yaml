@@ -6,7 +6,7 @@ essential:
 slices:
   bins:
     essential:
-      - apache-2-utils_scripts
+      - apache2-utils_scripts
       - libapr1t64_libs
       - libaprutil1t64_libs
       - libc6_libs

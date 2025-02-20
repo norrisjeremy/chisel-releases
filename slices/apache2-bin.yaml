@@ -29,8 +29,7 @@ slices:
       - libxml2_libs
       - zlib1g_libs
     contents:
-      /usr/lib/apache2/modules/httpd.exp:
-      /usr/lib/apache2/modules/*.so:
+      /usr/lib/apache2/modules/**:
 
   copyright:
     contents:

@@ -11,8 +11,8 @@ slices:
       - apache2-data_data
       - apache2-utils_bins
       - base-files_bin
-      - media-types_data
       - coreutils_bins
+      - media-types_data
       - perl-base_bins
       - perl-base_modules
       - procps_bins
@@ -33,8 +33,7 @@ slices:
       /etc/apache2/conf-available/**:
       /etc/apache2/envvars:
       /etc/apache2/magic:
-      /etc/apache2/mods-available/*.load:
-      /etc/apache2/mods-available/*.conf:
+      /etc/apache2/mods-available/**:
       /etc/apache2/mods-enabled/access_compat.load:
         symlink: /etc/apache2/mods-available/access_compat.load
       /etc/apache2/mods-enabled/actions.conf:
