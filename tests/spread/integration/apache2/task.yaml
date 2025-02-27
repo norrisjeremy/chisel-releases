@@ -1,0 +1,11 @@
+summary: Integration tests for apache2
+
+execute: |
+  rootfs="$(apache2_bins dash_bins base-files_bin coreutils_bins adduser_bins)"
+
+  mkdir -p "${rootfs}/dev"
+  mount --rbind /dev "${rootfs}/dev"
+  echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
+  echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
+  chroot "${rootfs}" apache2ctl start
+  test "$(curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1)" = "200"
