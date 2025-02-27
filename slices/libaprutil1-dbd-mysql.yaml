@@ -10,8 +10,8 @@ slices:
       - libc6_libs
       - libmysqlclient21_libs
     contents:
-      /usr/lib/x86_64-linux-gnu/apr-util-1/apr_dbd_mysql-1.so:
-      /usr/lib/x86_64-linux-gnu/apr-util-1/apr_dbd_mysql.so:
+      /usr/lib/*-linux-*/apr-util-1/apr_dbd_mysql-1.so:
+      /usr/lib/*-linux-*/apr-util-1/apr_dbd_mysql.so:
 
   copyright:
     contents:

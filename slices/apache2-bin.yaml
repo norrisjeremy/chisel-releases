@@ -7,6 +7,7 @@ slices:
   bins:
     essential:
       - apache2-bin_modules
+      - apache2-bin_state
     contents:
       /usr/sbin/apache2:
 
@@ -34,3 +35,7 @@ slices:
   copyright:
     contents:
       /usr/share/doc/apache2-bin/copyright:
+
+  state:
+    contents:
+      /var/lib/apache2/:

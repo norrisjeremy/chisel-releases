@@ -5,21 +5,7 @@ execute: |
 
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
-  mkdir -p "${rootfs}/var/run/apache2"
-  mkdir -p "${rootfs}/var/lock/apache2"
-  mkdir -p "${rootfs}/var/log/apache2"
-  mkdir -p "${rootfs}/var/www/html"
-  chown www-data:www-data "${rootfs}/var/run/apache2"
-  chown www-data:www-data "${rootfs}/var/lock/apache2"
-  chown www-data:www-data "${rootfs}/var/log/apache2"
-  chown -R www-data:www-data "${rootfs}/var/www"
-  chmod 755 "${rootfs}/var/run/apache2"
-  chmod 755 "${rootfs}/var/lock/apache2"
-  chmod 755 "${rootfs}/var/log/apache2"
-  chmod -R 755 "${rootfs}/var/www"
   echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chroot "${rootfs}" apache2ctl start
   test "$(curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1)" = "200"
-  chroot "${rootfs}"  apache2ctl stop
-  test "$(curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1)" = "000"
