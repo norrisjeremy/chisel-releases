@@ -6,8 +6,8 @@ essential:
 slices:
   bins:
     essential:
-      - apache2_configs
       - apache2-bin_bins
+      - apache2_configs
       - apache2-utils_bins
       - base-files_bin
       - base-files_var
