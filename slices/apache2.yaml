@@ -148,7 +148,7 @@ slices:
   copyright:
     contents:
       /usr/share/doc/apache2/copyright:
-  
+
   index:
     essential:
       - apache2-data_default-site
