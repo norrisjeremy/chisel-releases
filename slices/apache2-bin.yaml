@@ -4,8 +4,13 @@ essential:
   - apache2-bin_copyright
 
 slices:
+  apache2:
+    contents:
+      /usr/sbin/apache2:
+
   bins:
     essential:
+      - apache2-bin_apache2
       - apache2-bin_modules
       - apache2-bin_state
     contents:
@@ -13,24 +18,1029 @@ slices:
 
   modules:
     essential:
+      - apache2-bin_mod-access-compat
+      - apache2-bin_mod-actions
+      - apache2-bin_mod-alias
+      - apache2-bin_mod-allowmethods
+      - apache2-bin_mod-asis
+      - apache2-bin_mod-auth-basic
+      - apache2-bin_mod-auth-digest
+      - apache2-bin_mod-auth-form
+      - apache2-bin_mod-authn-anon
+      - apache2-bin_mod-authn-core
+      - apache2-bin_mod-authn-dbd
+      - apache2-bin_mod-authn-dbm
+      - apache2-bin_mod-authn-file
+      - apache2-bin_mod-authn-socache
+      - apache2-bin_mod-authnz-fcgi
+      - apache2-bin_mod-authnz-ldap
+      - apache2-bin_mod-authz-core
+      - apache2-bin_mod-authz-dbd
+      - apache2-bin_mod-authz-dbm
+      - apache2-bin_mod-authz-groupfile
+      - apache2-bin_mod-authz-host
+      - apache2-bin_mod-authz-owner
+      - apache2-bin_mod-authz-user
+      - apache2-bin_mod-autoindex
+      - apache2-bin_mod-brotli
+      - apache2-bin_mod-bucketeer
+      - apache2-bin_mod-buffer
+      - apache2-bin_mod-cache
+      - apache2-bin_mod-cache-disk
+      - apache2-bin_mod-cache-socache
+      - apache2-bin_mod-case-filter
+      - apache2-bin_mod-case-filter-in
+      - apache2-bin_mod-cern-meta
+      - apache2-bin_mod-cgi
+      - apache2-bin_mod-cgid
+      - apache2-bin_mod-charset-lite
+      - apache2-bin_mod-data
+      - apache2-bin_mod-dav
+      - apache2-bin_mod-dav-fs
+      - apache2-bin_mod-dav-lock
+      - apache2-bin_mod-dbd
+      - apache2-bin_mod-deflate
+      - apache2-bin_mod-dialup
+      - apache2-bin_mod-dir
+      - apache2-bin_mod-dumpio
+      - apache2-bin_mod-echo
+      - apache2-bin_mod-env
+      - apache2-bin_mod-expires
+      - apache2-bin_mod-ext-filter
+      - apache2-bin_mod-file-cache
+      - apache2-bin_mod-filter
+      - apache2-bin_mod-headers
+      - apache2-bin_mod-heartbeat
+      - apache2-bin_mod-heartmonitor
+      - apache2-bin_mod-http2
+      - apache2-bin_mod-ident
+      - apache2-bin_mod-imagemap
+      - apache2-bin_mod-include
+      - apache2-bin_mod-info
+      - apache2-bin_mod-lbmethod-bybusyness
+      - apache2-bin_mod-lbmethod-byrequests
+      - apache2-bin_mod-lbmethod-bytraffic
+      - apache2-bin_mod-lbmethod-heartbeat
+      - apache2-bin_mod-ldap
+      - apache2-bin_mod-log-debug
+      - apache2-bin_mod-log-forensic
+      - apache2-bin_mod-lua
+      - apache2-bin_mod-macro
+      - apache2-bin_mod-md
+      - apache2-bin_mod-mime
+      - apache2-bin_mod-mime-magic
+      - apache2-bin_mod-mpm-event
+      - apache2-bin_mod-mpm-prefork
+      - apache2-bin_mod-mpm-worker
+      - apache2-bin_mod-negotiation
+      - apache2-bin_mod-proxy
+      - apache2-bin_mod-proxy-ajp
+      - apache2-bin_mod-proxy-balancer
+      - apache2-bin_mod-proxy-connect
+      - apache2-bin_mod-proxy-express
+      - apache2-bin_mod-proxy-fcgi
+      - apache2-bin_mod-proxy-fdpass
+      - apache2-bin_mod-proxy-ftp
+      - apache2-bin_mod-proxy-hcheck
+      - apache2-bin_mod-proxy-html
+      - apache2-bin_mod-proxy-http
+      - apache2-bin_mod-proxy-http2
+      - apache2-bin_mod-proxy-scgi
+      - apache2-bin_mod-proxy-uwsgi
+      - apache2-bin_mod-proxy-wstunnel
+      - apache2-bin_mod-ratelimit
+      - apache2-bin_mod-reflector
+      - apache2-bin_mod-remoteip
+      - apache2-bin_mod-reqtimeout
+      - apache2-bin_mod-request
+      - apache2-bin_mod-rewrite
+      - apache2-bin_mod-sed
+      - apache2-bin_mod-session
+      - apache2-bin_mod-session-cookie
+      - apache2-bin_mod-session-crypto
+      - apache2-bin_mod-session-dbd
+      - apache2-bin_mod-setenvif
+      - apache2-bin_mod-slotmem-plain
+      - apache2-bin_mod-slotmem-shm
+      - apache2-bin_mod-socache-dbm
+      - apache2-bin_mod-socache-memcache
+      - apache2-bin_mod-socache-redis
+      - apache2-bin_mod-socache-shmcb
+      - apache2-bin_mod-speling
+      - apache2-bin_mod-ssl
+      - apache2-bin_mod-status
+      - apache2-bin_mod-substitute
+      - apache2-bin_mod-suexec
+      - apache2-bin_mod-unique-id
+      - apache2-bin_mod-userdir
+      - apache2-bin_mod-usertrack
+      - apache2-bin_mod-vhost-alias
+      - apache2-bin_mod-xml2enc
       - libapr1t64_libs
       - libaprutil1-dbd-sqlite3_libs
       - libaprutil1-ldap_libs
       - libaprutil1t64_libs
+      - libpcre2-8-0_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/**:
+
+  mod-access-compat:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_access_compat.so:
+
+  mod-actions:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_actions.so:
+
+  mod-alias:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_alias.so:
+
+  mod-allowmethods:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_allowmethods.so:
+
+  mod-asis:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_asis.so:
+
+  mod-auth-basic:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_auth_basic.so:
+
+  mod-auth-digest:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_auth_digest.so:
+
+  mod-auth-form:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_auth_form.so:
+
+  mod-authn-anon:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authn_anon.so:
+
+  mod-authn-core:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authn_core.so:
+
+  mod-authn-dbd:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authn_dbd.so:
+
+  mod-authn-dbm:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authn_dbm.so:
+
+  mod-authn-file:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authn_file.so:
+
+  mod-authn-socache:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authn_socache.so:
+
+  mod-authnz-fcgi:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authnz_fcgi.so:
+
+  mod-authnz-ldap:
+    essential:
+      - libc6_libs
+      - libffi8_libs
+      - libgmp10_libs
+      - libgnutls30t64_libs
+      - libhogweed6t64_libs
+      - libidn2-0_libs
+      - libldap2_libs
+      - libnettle8t64_libs
+      - libp11-kit0_libs
+      - libsasl2-2_libs
+      - libssl3t64_libs
+      - libtasn1-6_libs
+      - libunistring5_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authnz_ldap.so:
+
+  mod-authz-core:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authz_core.so:
+
+  mod-authz-dbd:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authz_dbd.so:
+
+  mod-authz-dbm:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authz_dbm.so:
+
+  mod-authz-groupfile:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authz_groupfile.so:
+
+  mod-authz-host:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authz_host.so:
+
+  mod-authz-owner:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authz_owner.so:
+
+  mod-authz-user:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_authz_user.so:
+
+  mod-autoindex:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_autoindex.so:
+
+  mod-brotli:
+    essential:
       - libbrotli1_libs
       - libc6_libs
-      - libcrypt1_libs
-      - libcurl4t64_libs
-      - libjansson4_libs
-      - libldap2_libs
-      - liblua5.4-0_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_brotli.so:
+
+  mod-bucketeer:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_bucketeer.so:
+
+  mod-buffer:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_buffer.so:
+
+  mod-cache:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_cache.so:
+
+  mod-cache-disk:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_cache_disk.so:
+
+  mod-cache-socache:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_cache_socache.so:
+
+  mod-case-filter:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_case_filter.so:
+
+  mod-case-filter-in:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_case_filter_in.so:
+
+  mod-cern-meta:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_cern_meta.so:
+
+  mod-cgi:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_cgi.so:
+
+  mod-cgid:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_cgid.so:
+
+  mod-charset-lite:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_charset_lite.so:
+
+  mod-data:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_data.so:
+
+  mod-dav:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_dav.so:
+
+  mod-dav-fs:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_dav_fs.so:
+
+  mod-dav-lock:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_dav_lock.so:
+
+  mod-dbd:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_dbd.so:
+
+  mod-deflate:
+    essential:
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_deflate.so:
+
+  mod-dialup:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_dialup.so:
+
+  mod-dir:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_dir.so:
+
+  mod-dumpio:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_dumpio.so:
+
+  mod-echo:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_echo.so:
+
+  mod-env:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_env.so:
+
+  mod-expires:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_expires.so:
+
+  mod-ext-filter:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_ext_filter.so:
+
+  mod-file-cache:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_file_cache.so:
+
+  mod-filter:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_filter.so:
+
+  mod-headers:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_headers.so:
+
+  mod-heartbeat:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_heartbeat.so:
+
+  mod-heartmonitor:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_heartmonitor.so:
+
+  mod-http2:
+    essential:
+      - libc6_libs
       - libnghttp2-14_libs
-      - libpcre2-8-0_libs
       - libssl3t64_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_http2.so:
+
+  mod-ident:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_ident.so:
+
+  mod-imagemap:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_imagemap.so:
+
+  mod-include:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_include.so:
+
+  mod-info:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_info.so:
+
+  mod-lbmethod-bybusyness:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_lbmethod_bybusyness.so:
+
+  mod-lbmethod-byrequests:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_lbmethod_byrequests.so:
+
+  mod-lbmethod-bytraffic:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_lbmethod_bytraffic.so:
+
+  mod-lbmethod-heartbeat:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_lbmethod_heartbeat.so:
+
+  mod-ldap:
+    essential:
+      - libc6_libs
+      - libffi8_libs
+      - libgmp10_libs
+      - libgnutls30t64_libs
+      - libhogweed6t64_libs
+      - libidn2-0_libs
+      - libldap2_libs
+      - libnettle8t64_libs
+      - libp11-kit0_libs
+      - libsasl2-2_libs
+      - libssl3t64_libs
+      - libtasn1-6_libs
+      - libunistring5_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_ldap.so:
+
+  mod-log-debug:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_log_debug.so:
+
+  mod-log-forensic:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_log_forensic.so:
+
+  mod-lua:
+    essential:
+      - libc6_libs
+      - libcrypt1_libs
+      - liblua5.4-0_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_lua.so:
+
+  mod-macro:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_macro.so:
+
+  mod-md:
+    essential:
+      - libbrotli1_libs
+      - libc6_libs
+      - libcom-err2_libs
+      - libcurl4t64_libs
+      - libffi8_libs
+      - libgmp10_libs
+      - libgnutls30t64_libs
+      - libgssapi-krb5-2_libs
+      - libhogweed6t64_libs
+      - libidn2-0_libs
+      - libjansson4_libs
+      - libk5crypto3_libs
+      - libkeyutils1_libs
+      - libkrb5-3_libs
+      - libkrb5support0_libs
+      - libldap2_libs
+      - libnettle8t64_libs
+      - libnghttp2-14_libs
+      - libp11-kit0_libs
+      - libpsl5t64_libs
+      - librtmp1_libs
+      - libsasl2-2_libs
+      - libssh-4_libs
+      - libssl3t64_libs
+      - libtasn1-6_libs
+      - libunistring5_libs
+      - libzstd1_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_md.so:
+
+  mod-mime:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_mime.so:
+
+  mod-mime-magic:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_mime_magic.so:
+
+  mod-mpm-event:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_mpm_event.so:
+
+  mod-mpm-prefork:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_mpm_prefork.so:
+
+  mod-mpm-worker:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_mpm_worker.so:
+
+  mod-negotiation:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_negotiation.so:
+
+  mod-proxy:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy.so:
+
+  mod-proxy-ajp:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_ajp.so:
+
+  mod-proxy-balancer:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_balancer.so:
+
+  mod-proxy-connect:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_connect.so:
+
+  mod-proxy-express:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_express.so:
+
+  mod-proxy-fcgi:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_fcgi.so:
+
+  mod-proxy-fdpass:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_fdpass.so:
+
+  mod-proxy-ftp:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_ftp.so:
+
+  mod-proxy-hcheck:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_hcheck.so:
+
+  mod-proxy-html:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libicu74_libs
+      - liblzma5_libs
+      - libstdc++6_libs
       - libxml2_libs
       - zlib1g_libs
     contents:
-      /usr/lib/apache2/modules/**:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_html.so:
+
+  mod-proxy-http:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_http.so:
+
+  mod-proxy-http2:
+    essential:
+      - libc6_libs
+      - libnghttp2-14_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_http2.so:
+
+  mod-proxy-scgi:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_scgi.so:
+
+  mod-proxy-uwsgi:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_uwsgi.so:
+
+  mod-proxy-wstunnel:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_proxy_wstunnel.so:
+
+  mod-ratelimit:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_ratelimit.so:
+
+  mod-reflector:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_reflector.so:
+
+  mod-remoteip:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_remoteip.so:
+
+  mod-reqtimeout:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_reqtimeout.so:
+
+  mod-request:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_request.so:
+
+  mod-rewrite:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_rewrite.so:
+
+  mod-sed:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_sed.so:
+
+  mod-session:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_session.so:
+
+  mod-session-cookie:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_session_cookie.so:
+
+  mod-session-crypto:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_session_crypto.so:
+
+  mod-session-dbd:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_session_dbd.so:
+
+  mod-setenvif:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_setenvif.so:
+
+  mod-slotmem-plain:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_slotmem_plain.so:
+
+  mod-slotmem-shm:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_slotmem_shm.so:
+
+  mod-socache-dbm:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_socache_dbm.so:
+
+  mod-socache-memcache:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_socache_memcache.so:
+
+  mod-socache-redis:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_socache_redis.so:
+
+  mod-socache-shmcb:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_socache_shmcb.so:
+
+  mod-speling:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_speling.so:
+
+  mod-ssl:
+    essential:
+      - libc6_libs
+      - libssl3t64_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_ssl.so:
+
+  mod-status:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_status.so:
+
+  mod-substitute:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_substitute.so:
+
+  mod-suexec:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_suexec.so:
+
+  mod-unique-id:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_unique_id.so:
+
+  mod-userdir:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_userdir.so:
+
+  mod-usertrack:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_usertrack.so:
+
+  mod-vhost-alias:
+    essential:
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_vhost_alias.so:
+
+  mod-xml2enc:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libicu74_libs
+      - liblzma5_libs
+      - libstdc++6_libs
+      - libxml2_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+      /usr/lib/apache2/modules/mod_xml2enc.so:
 
   copyright:
     contents:

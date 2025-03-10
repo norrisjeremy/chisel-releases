@@ -7,7 +7,7 @@ slices:
   bins:
     essential:
       - apache2-bin_bins
-      - apache2_configs
+      - apache2_config
       - apache2-utils_bins
       - base-files_bin
       - base-files_var
@@ -15,6 +15,8 @@ slices:
       - media-types_data
       - perl-base_bins
       - perl-base_modules
+      - perl-modules-5.38_core
+      - perl-modules-5.38_system-utils
       - procps_bins
     contents:
       /usr/sbin/a2disconf:
@@ -30,7 +32,7 @@ slices:
   config:
     essential:
       - apache2-data_data
-      - apache2_www
+      - apache2_documentroot
     contents:
       /etc/apache2/apache2.conf:
       /etc/apache2/conf-available/**:
@@ -55,10 +57,10 @@ slices:
         symlink: /etc/apache2/mods-available/alias.load
       /etc/apache2/mods-enabled/auth_basic.load:
         symlink: /etc/apache2/mods-available/auth_basic.load
-      /etc/apache2/mods-enabled/authn_file.load:
-        symlink: /etc/apache2/mods-available/authn_file.load
       /etc/apache2/mods-enabled/authz_core.load:
         symlink: /etc/apache2/mods-available/authz_core.load
+      /etc/apache2/mods-enabled/authn_file.load:
+        symlink: /etc/apache2/mods-available/authn_file.load
       /etc/apache2/mods-enabled/authz_host.load:
         symlink: /etc/apache2/mods-available/authz_host.load
       /etc/apache2/mods-enabled/authz_user.load:
@@ -83,10 +85,10 @@ slices:
         symlink: /etc/apache2/mods-available/mime.conf
       /etc/apache2/mods-enabled/mime.load:
         symlink: /etc/apache2/mods-available/mime.load
-      /etc/apache2/mods-enabled/mpm_prefork.conf:
-        symlink: /etc/apache2/mods-available/mpm_prefork.conf
-      /etc/apache2/mods-enabled/mpm_prefork.load:
-        symlink: /etc/apache2/mods-available/mpm_prefork.load
+      /etc/apache2/mods-enabled/mpm_event.conf:
+        symlink: /etc/apache2/mods-available/mpm_event.conf
+      /etc/apache2/mods-enabled/mpm_event.load:
+        symlink: /etc/apache2/mods-available/mpm_event.load
       /etc/apache2/mods-enabled/negotiation.conf:
         symlink: /etc/apache2/mods-available/negotiation.conf
       /etc/apache2/mods-enabled/negotiation.load:
@@ -152,11 +154,11 @@ slices:
   index:
     essential:
       - apache2-data_default-site
-      - apache2_www
+      - apache2_documentroot
     contents:
       /var/www/html/index.html:
         copy: /usr/share/apache2/default-site/index.html
 
-  www:
+  documentroot:
     contents:
       /var/www/html/:

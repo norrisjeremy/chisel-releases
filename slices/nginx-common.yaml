@@ -10,7 +10,7 @@ slices:
   # There's also no need (yet) for any init- and systemd-related files.
   config:
     essential:
-      - apache2_www
+      - apache2_documentroot
     contents:
       /etc/logrotate.d/nginx:
       /etc/nginx/fastcgi.conf:
@@ -45,7 +45,7 @@ slices:
 
   index:
     essential:
-      - apache2_www
+      - apache2_documentroot
     contents:
       /usr/share/nginx/html/index.html:
       /var/www/html/index.nginx-debian.html:

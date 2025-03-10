@@ -1,9 +1,6 @@
-summary: Integration tests for apache2
+summary: Integration tests for apache2-bin
 
 execute: |
-  rootfs="$(apache2_bins dash_bins base-files_bin coreutils_bins adduser_bins)"
+  rootfs="$(apache2-bin_bins dash_bins)"
 
   chroot "${rootfs}/" apache2 -v
-  chroot "${rootfs}/" sh -c ". /etc/apache2/envvars && apache2 -S"
-  test "$(chroot "${rootfs}/" sh -c ". /etc/apache2/envvars && apache2 -t" 2>&1 >/dev/null)" \
-    = "Syntax OK"
