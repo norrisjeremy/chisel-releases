@@ -7,8 +7,8 @@ slices:
   bins:
     essential:
       - apache2-bin_bins
-      - apache2_config
       - apache2-utils_bins
+      - apache2_config
       - base-files_bin
       - base-files_var
       - coreutils_bins
@@ -57,10 +57,10 @@ slices:
         symlink: /etc/apache2/mods-available/alias.load
       /etc/apache2/mods-enabled/auth_basic.load:
         symlink: /etc/apache2/mods-available/auth_basic.load
-      /etc/apache2/mods-enabled/authz_core.load:
-        symlink: /etc/apache2/mods-available/authz_core.load
       /etc/apache2/mods-enabled/authn_file.load:
         symlink: /etc/apache2/mods-available/authn_file.load
+      /etc/apache2/mods-enabled/authz_core.load:
+        symlink: /etc/apache2/mods-available/authz_core.load
       /etc/apache2/mods-enabled/authz_host.load:
         symlink: /etc/apache2/mods-available/authz_host.load
       /etc/apache2/mods-enabled/authz_user.load:

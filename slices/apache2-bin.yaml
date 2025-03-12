@@ -201,6 +201,7 @@ slices:
   mod-authn-anon:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authn_anon.so:
@@ -215,6 +216,8 @@ slices:
   mod-authn-dbd:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
+      - apache2-bin_mod-dbd
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authn_dbd.so:
@@ -222,6 +225,7 @@ slices:
   mod-authn-dbm:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authn_dbm.so:
@@ -229,6 +233,7 @@ slices:
   mod-authn-file:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authn_file.so:
@@ -236,6 +241,7 @@ slices:
   mod-authn-socache:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authn_socache.so:
@@ -243,6 +249,8 @@ slices:
   mod-authnz-fcgi:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
+      - apache2-bin_mod-authz-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authnz_fcgi.so:
@@ -250,6 +258,9 @@ slices:
   mod-authnz-ldap:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
+      - apache2-bin_mod-authz-core
+      - apache2-bin_mod-ldap
       - libaprutil1-ldap_libs
       - libc6_libs
       - libldap2_libs
@@ -266,6 +277,8 @@ slices:
   mod-authz-dbd:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
+      - apache2-bin_mod-dbd
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authz_dbd.so:
@@ -273,6 +286,7 @@ slices:
   mod-authz-dbm:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authz-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authz_dbm.so:
@@ -280,6 +294,7 @@ slices:
   mod-authz-groupfile:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authz-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authz_groupfile.so:
@@ -287,6 +302,7 @@ slices:
   mod-authz-host:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authz-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authz_host.so:
@@ -294,6 +310,7 @@ slices:
   mod-authz-owner:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authz-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authz_owner.so:
@@ -301,6 +318,7 @@ slices:
   mod-authz-user:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-authz-core
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_authz_user.so:
@@ -344,6 +362,7 @@ slices:
   mod-cache-disk:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-cache
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_cache_disk.so:
@@ -351,6 +370,7 @@ slices:
   mod-cache-socache:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-cache
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_cache_socache.so:
@@ -414,6 +434,7 @@ slices:
   mod-dav-fs:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-dav
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_dav_fs.so:
@@ -421,6 +442,7 @@ slices:
   mod-dav-lock:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-dav
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_dav_lock.so:
@@ -564,6 +586,7 @@ slices:
   mod-lbmethod-bybusyness:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy-balancer
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_lbmethod_bybusyness.so:
@@ -571,6 +594,7 @@ slices:
   mod-lbmethod-byrequests:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy-balancer
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_lbmethod_byrequests.so:
@@ -578,6 +602,7 @@ slices:
   mod-lbmethod-bytraffic:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy-balancer
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_lbmethod_bytraffic.so:
@@ -585,6 +610,7 @@ slices:
   mod-lbmethod-heartbeat:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy-balancer
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_lbmethod_heartbeat.so:
@@ -690,6 +716,7 @@ slices:
   mod-proxy-ajp:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_ajp.so:
@@ -697,6 +724,7 @@ slices:
   mod-proxy-balancer:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_balancer.so:
@@ -704,6 +732,7 @@ slices:
   mod-proxy-connect:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_connect.so:
@@ -711,6 +740,7 @@ slices:
   mod-proxy-express:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_express.so:
@@ -718,6 +748,7 @@ slices:
   mod-proxy-fcgi:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_fcgi.so:
@@ -725,6 +756,7 @@ slices:
   mod-proxy-fdpass:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_fdpass.so:
@@ -732,6 +764,7 @@ slices:
   mod-proxy-ftp:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_ftp.so:
@@ -739,6 +772,7 @@ slices:
   mod-proxy-hcheck:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_hcheck.so:
@@ -746,6 +780,7 @@ slices:
   mod-proxy-html:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
       - libxml2_libs
     contents:
@@ -754,6 +789,7 @@ slices:
   mod-proxy-http:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_http.so:
@@ -761,6 +797,7 @@ slices:
   mod-proxy-http2:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
       - libnghttp2-14_libs
     contents:
@@ -769,6 +806,7 @@ slices:
   mod-proxy-scgi:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_scgi.so:
@@ -776,6 +814,7 @@ slices:
   mod-proxy-uwsgi:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_uwsgi.so:
@@ -783,6 +822,7 @@ slices:
   mod-proxy-wstunnel:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-proxy
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_proxy_wstunnel.so:
@@ -846,6 +886,7 @@ slices:
   mod-session-cookie:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-session
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_session_cookie.so:
@@ -853,6 +894,7 @@ slices:
   mod-session-crypto:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-session
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_session_crypto.so:
@@ -860,6 +902,8 @@ slices:
   mod-session-dbd:
     essential:
       - apache2-bin_apache2
+      - apache2-bin_mod-dbd
+      - apache2-bin_mod-session
       - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_session_dbd.so:
