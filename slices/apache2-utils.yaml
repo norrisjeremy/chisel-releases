@@ -30,6 +30,7 @@ slices:
     essential:
       - base-files_bin
       - coreutils_bins
+      - dash_bins
       - grep_deprecated
       - perl-base_bins
     contents:

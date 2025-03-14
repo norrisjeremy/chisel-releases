@@ -1,7 +1,7 @@
 summary: Integration tests for apache2
 
 execute: |
-  rootfs="$(apache2_bins dash_bins base-passwd_data)"
+  rootfs="$(install-slices apache2_bins base-passwd_data)"
 
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"

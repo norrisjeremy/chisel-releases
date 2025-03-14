@@ -20,8 +20,7 @@ slices:
       /usr/lib/*-linux-*/apr-util-1/apr_dbm_db.so:
       /usr/lib/*-linux-*/apr-util-1/apr_dbm_gdbm-1.so:
       /usr/lib/*-linux-*/apr-util-1/apr_dbm_gdbm.so:
-      /usr/lib/*-linux-*/libaprutil-1.so.0:
-      /usr/lib/*-linux-*/libaprutil-1.so.0.6.3:
+      /usr/lib/*-linux-*/libaprutil-1.so.*:
 
   copyright:
     contents:
