@@ -18,4 +18,4 @@ execute: |
   echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chroot "${rootfs}" apache2ctl start
-  test "$(curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1)" = "200"
+  test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost)" = "200"
