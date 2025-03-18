@@ -42,6 +42,7 @@ execute: |
   EOF
 
   echo "Hello, Apache!" > "${rootfs}/var/www/html/index.html"
+  cat "${rootfs}/etc/apache2/apache2.conf"
   test "$(chroot "${rootfs}" apache2 -t 2>&1 )" = "Syntax OK"
   chroot "${rootfs}" apache2 -k start
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
