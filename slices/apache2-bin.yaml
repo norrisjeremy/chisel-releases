@@ -278,7 +278,7 @@ slices:
   mod-authz-dbd:
     essential:
       - apache2-bin_apache2
-      - apache2-bin_mod-authnz-core
+      - apache2-bin_mod-authz-core
       - apache2-bin_mod-dbd
       - libc6_libs
     contents:

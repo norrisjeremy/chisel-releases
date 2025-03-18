@@ -8,37 +8,31 @@ execute: |
   mount --rbind /dev "${rootfs}/dev"
   mkdir -p "${rootfs}/etc/apache2"
   mkdir -p "${rootfs}/etc/apache2/logs"
-  mkdir -p foo/var/run/apache2
-  mkdir -p foo/var/lock/apache2
-  mkdir -p foo/var/log/apache2
-  mkdir -p foo/var/www/html
+  mkdir -p "${rootfs}/var/run/apache2"
+  mkdir -p "${rootfs}/var/lock/apache2"
+  mkdir -p "${rootfs}/var/log/apache2"
+  mkdir -p "${rootfs}/var/www/html"
 
-  chown www-data:www-data foo/var/run/apache2
-  chown www-data:www-data foo/var/lock/apache2
-  chown www-data:www-data foo/var/log/apache2
-  chown -R www-data:www-data foo/var/www
+  chown www-data:www-data "${rootfs}/var/run/apache2"
+  chown www-data:www-data "${rootfs}/var/lock/apache2"
+  chown www-data:www-data "${rootfs}/var/log/apache2"
+  chown -R www-data:www-data "${rootfs}/var/www"
 
-  chmod 755 foo/var/run/apache2
-  chmod 755 foo/var/lock/apache2
-  chmod 755 foo/var/log/apache2
-  chmod -R 755 foo/var/www
+  chmod 755 "${rootfs}/var/run/apache2"
+  chmod 755 "${rootfs}/var/lock/apache2"
+  chmod 755 "${rootfs}/var/log/apache2"
+  chmod -R 755 "${rootfs}/var/www"
 
-  chroot foo sh -c 'echo "ServerRoot \"/etc/apache2\"" > /etc/apache2/apache2.conf'
-  chroot foo sh -c 'echo "ServerName localhost" >> /etc/apache2/apache2.conf'
-  chroot foo sh -c 'echo "Listen 80" >> /etc/apache2/apache2.conf'
-  chroot foo sh -c 'echo \
-  "LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so" >> \
-  /etc/apache2/apache2.conf'
-  chroot foo sh -c 'echo \
-  "LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so" >> \
-  /etc/apache2/apache2.conf'
-  chroot foo sh -c 'echo "LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so" >> \
-  /etc/apache2/apache2.conf'
-  chroot foo sh -c 'echo "ErrorLog /etc/apache2/logs/error.log" >> /etc/apache2/apache2.conf'
-  chroot foo sh -c 'echo "User www-data" >> /etc/apache2/apache2.conf'
-  chroot foo sh -c 'echo "Group www-data" >> /etc/apache2/apache2.conf'
-
-  cat <<'EOF' >> foo/etc/apache2/apache2.conf
+  cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
+  ServerRoot "/etc/apache2"
+  ServerName localhost
+  Listen 80
+  LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so
+  LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
+  LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
+  ErrorLog /etc/apache2/logs/error.log
+  User www-data
+  Group www-data
   DocumentRoot "/var/www/html"
   <Directory "/var/www/html">
       Options Indexes FollowSymLinks
@@ -47,7 +41,8 @@ execute: |
   </Directory>
   EOF
 
-  echo "Hello, Apache!" > foo/var/www/html/index.html
-  test "$(chroot foo apache2 -t 2>&1 )" = "Syntax OK"
-  chroot foo apache2 -k start
+  echo "Hello, Apache!" > "${rootfs}/var/www/html/index.html"
+  test "$(chroot "${rootfs}" apache2 -t 2>&1 )" = "Syntax OK"
+  chroot "${rootfs}" apache2 -k start
   test "$(curl -s -o /dev/null -w "%{http_code}\n" http://127.0.0.1)" = "200"
+  chroot "${rootfs}" apache2 -k stop
