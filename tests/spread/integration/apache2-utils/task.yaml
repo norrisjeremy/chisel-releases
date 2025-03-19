@@ -2,7 +2,7 @@ summary: Integration tests for apache2-utils
 
 execute: |
   # Installing apache2_bins to be able to do a benchmark test using ab util
-  rootfs="$install-slices (apache2_bins dash_bins base-files_bin coreutils_bins adduser_bins)"
+  rootfs="$(install-slices apache2_bins dash_bins base-files_bin coreutils_bins adduser_bins)"
 
   test "$(chroot "${rootfs}/" htdbm -cb test.htdbm user1 password123)" = \
     "Database test.htdbm created."
