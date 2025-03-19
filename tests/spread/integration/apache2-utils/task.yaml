@@ -22,8 +22,10 @@ execute: |
   grep -o "Requests per second")" = "Requests per second"
   test "$(id -g | chroot "${rootfs}/" checkgid 2>dev/null && echo "valid")" = "valid"
   test "$(chroot "${rootfs}/" fcgistarter 2>&1 | grep -o 'usage')" = "usage"
-  echo -e '#!/bin/bash\nwhile true; do echo "Fake FastCGI Running"; sleep 5; done' > \
-   /tmp/fake-fcgi.sh
+  cat <<'EOF' > /tmp/fake-fcgi.sh
+  #!/bin/bash
+  while true; do echo "Fake FastCGI Running"; sleep 5; done
+  EOF
   chmod +x /tmp/fake-fcgi.sh
   chroot "${rootfs}/" fcgistarter -c ../tmp/fake-fcgi.sh -p 9000
   test "$(ps aux | grep -o fake-fcgi.sh)" = "fake-fcgi.sh"
