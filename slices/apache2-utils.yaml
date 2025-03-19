@@ -6,7 +6,6 @@ essential:
 slices:
   bins:
     essential:
-      - apache2-utils_scripts
       - libapr1t64_libs
       - libaprutil1t64_libs
       - libc6_libs
@@ -28,6 +27,7 @@ slices:
 
   scripts:
     essential:
+      - apache2-utils_bins
       - base-files_bin
       - coreutils_bins
       - dash_bins

@@ -17,7 +17,6 @@ slices:
       - apache2-bin_apache2
       - apache2-bin_modules
       - apache2-bin_state
-      - dash_bins
 
   modules:
     essential:

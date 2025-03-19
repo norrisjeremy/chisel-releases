@@ -4,6 +4,7 @@ execute: |
   rootfs="$(install-slices apache2-bin_bins base-passwd_data)"
 
   chroot "${rootfs}/" apache2 -v
+
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
   mkdir -p "${rootfs}/etc/apache2"
@@ -25,7 +26,7 @@ execute: |
 
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
   ServerRoot "/etc/apache2"
-  ServerName localhost:8080
+  ServerName 127.0.0.1:8080
   Listen 8080
   LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
@@ -45,5 +46,6 @@ execute: |
   cat "${rootfs}/etc/apache2/apache2.conf"
   test "$(chroot "${rootfs}" apache2 -t 2>&1 )" = "Syntax OK"
   chroot "${rootfs}" apache2 -k start
-  test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
+  test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
   chroot "${rootfs}" apache2 -k stop
+  umount -l "${rootfs}/dev"
