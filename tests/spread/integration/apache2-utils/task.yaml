@@ -20,7 +20,7 @@ execute: |
   chroot "${rootfs}" apache2ctl start
   test "$(chroot "${rootfs}/" ab -n 1 -c 1 http://127.0.0.1/ 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
-  test "$(id -g | chroot "${rootfs}/" checkgid 2>dev/null && echo "valid")" = "valid"
+  test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
   test "$(chroot "${rootfs}/" fcgistarter 2>&1 | grep -o 'usage')" = "usage"
   cat <<'EOF' > /tmp/fake-fcgi.sh
   #!/bin/bash
