@@ -18,7 +18,7 @@ execute: |
   mount --rbind /dev "${rootfs}/dev"
   echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
   chroot "${rootfs}" apache2ctl start
-  test "$(chroot "${rootfs}/" ab -n 1 -c 1 http://127.0.0.1/ 2>/dev/null | \
+  test "$(chroot "${rootfs}/" ab -n 1 -c 1 localhost 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
   test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
   test "$(chroot "${rootfs}/" fcgistarter 2>&1 | grep -o 'usage')" = "usage"
