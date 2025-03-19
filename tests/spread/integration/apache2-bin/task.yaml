@@ -26,7 +26,7 @@ execute: |
 
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
   ServerRoot "/etc/apache2"
-  ServerName 127.0.0.1:8080
+  ServerName localhost
   Listen 8080
   LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
