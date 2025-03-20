@@ -2,7 +2,7 @@ summary: Integration tests for apache2-utils
 
 execute: |
   # Installing apache2_bins to be able to do a benchmark test using ab util
-  rootfs="$(install-slices apache2_bins dash_bins base-files_bin coreutils_bins base-passwd_data)"
+  rootfs="$(install-slices apache2-utils_bins apache2-utils_scripts apache2_bins base-passwd_data)"
 
   test "$(chroot "${rootfs}/" htdbm -cb test.htdbm user1 password123)" = \
     "Database test.htdbm created."
@@ -30,5 +30,5 @@ execute: |
   chroot "${rootfs}/" fcgistarter -c ../tmp/fake-fcgi.sh -p 9000
   test "$(ps aux | grep -o fake-fcgi.sh)" = "fake-fcgi.sh"
   chroot "${rootfs}/" htcacheclean -n -v -p var/cache/apache2 -l 100M
-  test "$(chroot "${rootfs}/" htcacheclean -n -v -p var/cache/apache2 -l 100M 2>&1 | grep -o "Cleaned")" = \
-    "Cleaned"
+  test "$(chroot "${rootfs}/" htcacheclean -n -v -p var/cache/apache2 -l 100M 2>&1 | \
+  grep -o "Cleaned")" = "Cleaned"
