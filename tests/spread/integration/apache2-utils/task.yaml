@@ -18,7 +18,7 @@ execute: |
   mount --rbind /dev "${rootfs}/dev"
   echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
   chroot "${rootfs}" apache2ctl start
-  cat "${rootfs}/etc/apache2/logs/error.log"
+  cat "${rootfs}/var/log/apache2/error.log"
   test "$(chroot "${rootfs}/" ab -n 1 -c 1 localhost 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
   test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
