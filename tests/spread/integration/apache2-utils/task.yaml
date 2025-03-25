@@ -16,11 +16,18 @@ execute: |
   test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
-  mkdir -p "${rootfs}/var/run/apache2"
-  chown www-data:www-data "${rootfs}/var/run/apache2"
-  chmod 755 "${rootfs}/var/run/apache2"
+  # Check if /var/run inside chroot is a symlink and fix it
+  if [ -L "${rootfs}/var/run" ]; then
+    echo "[*] Detected symlink at ${rootfs}/var/run"
+    rm -f "${rootfs}/var/run"
+    mkdir -p "${rootfs}/var/run"
+    mkdir -p "${rootfs}/var/run/apache2"
+    chown www-data:www-data "${rootfs}/var/run/apache2"
+    chmod 755 "${rootfs}/var/run/apache2"
+  else
+    echo "[*] ${rootfs}/var/run is already a directory"
+  fi
   echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
-
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
   ServerRoot "/etc/apache2"
   ServerName localhost
@@ -31,7 +38,6 @@ execute: |
   LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
   LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
-  ErrorLog /var/log/apache2/error.log
   User www-data
   Group www-data
   DocumentRoot "/var/www/html"
@@ -41,14 +47,8 @@ execute: |
       Require all granted
   </Directory>
   EOF
-  cat "${rootfs}/etc/apache2/apache2.conf"
-  if [ -d "${rootfs}/var/run/apache2" ]; then
-  echo "Apache runtime dir exists inside chroot"
-  else
-    echo 'Missing: create it with mkdir -p "${rootfs}/var/run/apache2"'
-  fi
 
-  chroot "${rootfs}" apache2 -X -e debug
+  chroot "${rootfs}" apache2ctl start
   test "$(chroot "${rootfs}" ab -n 1 -c 1 http://localhost:8080/index.html 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
   test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
@@ -60,6 +60,5 @@ execute: |
   chmod +x /tmp/fake-fcgi.sh
   chroot "${rootfs}/" fcgistarter -c ../tmp/fake-fcgi.sh -p 9000
   test "$(ps aux | grep -o fake-fcgi.sh)" = "fake-fcgi.sh"
-  chroot "${rootfs}/" htcacheclean -n -v -p var/cache/apache2 -l 100M
-  test "$(chroot "${rootfs}/" htcacheclean -n -v -p var/cache/apache2 -l 100M 2>&1 | \
+  test "$(chroot "${rootfs}" htcacheclean -n -v -p var/cache/apache2 -l 100M 2>&1 | \
   grep -o "Cleaned")" = "Cleaned"
