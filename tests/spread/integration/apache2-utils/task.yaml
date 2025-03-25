@@ -16,7 +16,7 @@ execute: |
   test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
-  echo "127.0.0.1 localhost" > "{rootfs}/etc/hosts"
+  echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
   PidFile /var/run/apache2/apache2.pid
