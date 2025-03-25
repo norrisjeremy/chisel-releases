@@ -38,6 +38,12 @@ execute: |
       Require all granted
   </Directory>
   EOF
+  cat "${rootfs}/etc/apache2/apache2.conf"
+  if [ -d "${rootfs}/var/run/apache2" ]; then
+  echo "Apache runtime dir exists inside chroot"
+  else
+    echo 'Missing: create it with mkdir -p "${rootfs}/var/run/apache2"'
+  fi
 
   chroot "${rootfs}" apache2 -X -e debug
   test "$(chroot "${rootfs}" ab -n 1 -c 1 http://localhost:8080/index.html 2>/dev/null | \
