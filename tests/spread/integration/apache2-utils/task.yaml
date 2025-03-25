@@ -16,6 +16,9 @@ execute: |
   test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
+  mkdir -p "${rootfs}/var/run/apache2"
+  chown www-data:www-data "${rootfs}/var/run/apache2"
+  chmod 755 "${rootfs}/var/run/apache2"
   echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
 
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
