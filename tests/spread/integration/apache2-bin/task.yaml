@@ -25,6 +25,7 @@ execute: |
   chmod -R 755 "${rootfs}/var/www"
 
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
+  DefaultRuntimeDir /var/run/apache2
   ServerRoot "/etc/apache2"
   ServerName localhost
   Listen 8080
