@@ -48,7 +48,7 @@ execute: |
   </Directory>
   EOF
 
-  chroot "${rootfs}" apache2ctl start
+  chroot "${rootfs}" apache2 -X -e debug
   test "$(chroot "${rootfs}" ab -n 1 -c 1 http://localhost:8080/index.html 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
   test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
