@@ -16,10 +16,14 @@ execute: |
   test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
+  echo "127.0.0.1 localhost" > "{rootfs}/etc/hosts"
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
+  DefaultRuntimeDir /var/run/apache2
+  PidFile /var/run/apache2/apache2.pid
+  ErrorLog /var/log/apache2/error.log
   ServerRoot "/etc/apache2"
   ServerName localhost
-  Listen 80
+  Listen 8080
   LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
   LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
@@ -33,8 +37,8 @@ execute: |
       Require all granted
   </Directory>
   EOF
-  chroot "${rootfs}" apache2ctl -e debug -k start
-  test "$(chroot "${rootfs}/" ab -n 1 -c 1 localhost 2>/dev/null | \
+  chroot "${rootfs}" apache2ctl start
+  test "$(chroot "${rootfs}" ab -n 1 -c 1 http://localhost:8080/index.html 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
   test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
   test "$(chroot "${rootfs}/" fcgistarter 2>&1 | grep -o 'usage')" = "usage"
