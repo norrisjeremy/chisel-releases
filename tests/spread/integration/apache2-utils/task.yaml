@@ -33,7 +33,7 @@ execute: |
       Require all granted
   </Directory>
   EOF
-  chroot "${rootfs}" apache2ctl start
+  chroot "${rootfs}" apache2ctl -e debug -k start
   test "$(chroot "${rootfs}/" ab -n 1 -c 1 localhost 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
   test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
