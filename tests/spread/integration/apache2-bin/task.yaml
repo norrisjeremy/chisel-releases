@@ -45,7 +45,6 @@ execute: |
   echo "Hello, Apache!" > "${rootfs}/var/www/html/index.html"
   test "$(chroot "${rootfs}" apache2 -t 2>&1 )" = "Syntax OK"
   #chroot "${rootfs}" apache2 -k start
-  cat "${rootfs}/etc/apache2/logs/error.log"
-  #test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
+  test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
   chroot "${rootfs}" apache2 -k stop
   umount -l "${rootfs}/dev"
