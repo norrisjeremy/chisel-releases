@@ -17,6 +17,7 @@ execute: |
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
   echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
+
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
   PidFile /var/run/apache2/apache2.pid
@@ -37,6 +38,7 @@ execute: |
       Require all granted
   </Directory>
   EOF
+
   chroot "${rootfs}" apache2 -X -e debug
   test "$(chroot "${rootfs}" ab -n 1 -c 1 http://localhost:8080/index.html 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"

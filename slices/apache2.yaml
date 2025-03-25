@@ -147,7 +147,7 @@ slices:
       /var/log/apache2/access.log: {text: "", mode: 0640}
       /var/log/apache2/error.log: {text: "", mode: 0640}
       /var/log/apache2/other_vhosts_access.log: {text: "", mode: 0640}
-      /var/run/apache2/: {make: true, mode: 0755}
+      /var/run/apache2/:
 
   copyright:
     contents:
