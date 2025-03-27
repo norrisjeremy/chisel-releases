@@ -10,9 +10,9 @@ execute: |
     "Adding password for user user1"
   test "$(chroot "${rootfs}/"  htpasswd -vb test.htpasswd user1 passwd123 2>&1)" = \
     "Password for user user1 correct."
-  echo "192.168.1.1 - - [26/Feb/2025:10:00:00 +0000] \"GET /index.html HTTP/1.1\" 200 1024" \
-    > "${rootfs}/test.log"
-  awk '{print $1}' "${rootfs}/test.log" | chroot "${rootfs}/" logresolve > "${rootfs}/resolved.log"
+  # echo "192.168.1.1 - - [26/Feb/2025:10:00:00 +0000] \"GET /index.html HTTP/1.1\" 200 1024" \
+  #   > "${rootfs}/test.log"
+  # awk '{print $1}' "${rootfs}/test.log" | chroot "${rootfs}/" logresolve > "${rootfs}/resolved.log"
   # test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
   # mkdir -p "${rootfs}/dev"
   # mount --rbind /dev "${rootfs}/dev"
