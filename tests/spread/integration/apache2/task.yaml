@@ -33,5 +33,6 @@ execute: |
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chroot "${rootfs}" apache2ctl start
   apt update
-  apt install net-tools iproute -y
+  apt install net-tools iproute2 -y
+  ss -tulnp | grep apache2
   #test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
