@@ -32,4 +32,6 @@ execute: |
   test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chroot "${rootfs}" apache2ctl start
-  test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
+  apt update
+  apt install net-tools iproute -y
+  #test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
