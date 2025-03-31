@@ -35,6 +35,6 @@ execute: |
   apt update
   apt install net-tools iproute2 -y
   ss -tulnp | grep apache2
-  curl -v localhost:8080
   cat "${rootfs}/var/log/apache2/error.log"
+  curl -v localhost:8080
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
