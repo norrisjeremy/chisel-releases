@@ -35,4 +35,4 @@ execute: |
   apt update
   apt install net-tools iproute2 -y
   ss -tulnp | grep apache2
-  #test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
+  test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
