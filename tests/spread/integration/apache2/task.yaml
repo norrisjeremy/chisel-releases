@@ -22,7 +22,7 @@ execute: |
       Require all granted
   </Directory>
   EOF
-  test "$(chroot "${rootfs}/" apache2 -t 2>&1 >/dev/null)" = "Syntax OK"
+  test "$(chroot "${rootfs}" apache2 -t 2>&1 >/dev/null)" = "Syntax OK"
   test "$(chroot "${rootfs}" a2query -M)" = "event"
   test "$(chroot "${rootfs}" a2enmod mpm_event | tail -n -1)" = "Module mpm_event already enabled"
   test "$(chroot "${rootfs}" a2dismod mpm_prefork)" = "Module mpm_prefork already disabled"
@@ -36,5 +36,6 @@ execute: |
   apt install net-tools iproute2 -y
   ss -tulnp | grep apache2
   cat "${rootfs}/var/log/apache2/error.log"
+  cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
   curl -v localhost:8080
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
