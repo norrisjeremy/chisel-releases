@@ -37,5 +37,6 @@ execute: |
   ss -tulnp | grep apache2
   cat "${rootfs}/var/log/apache2/error.log"
   cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
+  find "${rootfs}" -name "libgcc_s*"
   curl -v localhost:8080
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
