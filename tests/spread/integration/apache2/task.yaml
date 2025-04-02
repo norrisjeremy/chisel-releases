@@ -23,6 +23,8 @@ execute: |
   ldconfig --verbose -r "${rootfs}/"
   ls -ld "${rootfs}/etc/ld.so.cache"
   cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
+  chroot "${rootfs}" a2dismod mpm_event
+  chroot "${rootfs}" a2enmod mpm_prefork
   chroot "${rootfs}" apache2ctl start
   apt update
   apt install net-tools iproute2 -y
