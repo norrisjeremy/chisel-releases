@@ -3,6 +3,7 @@ summary: Integration tests for apache2
 execute: |
   rootfs="$(install-slices apache2_bins base-passwd_data findutils_bins)"
 
+  sed -i '1a set -x' "${rootfs}/usr/sbin/apache2ctl"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
   echo -e "ServerName localhost:8080" >> "${rootfs}/etc/apache2/apache2.conf"
