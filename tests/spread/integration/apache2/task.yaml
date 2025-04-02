@@ -20,7 +20,7 @@ execute: |
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chmod 755 "${rootfs}/var/www/html"
   chmod 644 "${rootfs}/var/www/html/index.html"
-  la -ld ${rootfs}
+  ls -ld ${rootfs}
   ls -ld ${rootfs}/var
   ls -ld ${rootfs}/var/www
   ls -ld ${rootfs}/var/www/html
