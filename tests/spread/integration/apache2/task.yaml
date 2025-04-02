@@ -20,6 +20,7 @@ execute: |
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chmod 755 "${rootfs}/var/www/html"
   chmod 644 "${rootfs}/var/www/html/index.html"
+  ldconfig --verbose -r "${rootfs}/"
   chroot "${rootfs}" apache2ctl start
   apt update
   apt install net-tools iproute2 -y
