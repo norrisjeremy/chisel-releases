@@ -16,7 +16,7 @@ execute: |
   test "$(chroot "${rootfs}" a2ensite 000-default | head -n 1)" = "Enabling site 000-default."
   test "$(chroot "${rootfs}" a2disconf charset | head -n 1)" = "Conf charset disabled."
   test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
-  mkdir -p "${rootfs}/var/www/html/index.html"
+  mkdir -p "${rootfs}/var/www/html"
   chmod 755 "${rootfs}/var/www/html"
   chmod 644 "${rootfs}/var/www/html/index.html"
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
