@@ -157,11 +157,11 @@ slices:
       - apache2-data_default-site
       - apache2_documentroot
     contents:
-      /var/www/html/index.html: {text: FIXME, mutable: true}
+      /var/www/html/index.html: {text: FIXME, mutable: true, mode: 0644}
     mutate: |
       index = content.read("/usr/share/apache2/default-site/index.html")
       content.write("/var/www/html/index.html", index)
 
   documentroot:
     contents:
-      /var/www/html/:
+      /var/www/html/: {make: true, mode: 0755}
