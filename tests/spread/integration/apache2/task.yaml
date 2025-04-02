@@ -5,23 +5,8 @@ execute: |
 
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
-  cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
-  ServerRoot /etc/apache2
-  ServerName localhost:8080
-  Listen 8080
-  LoadModule mpm_event_module /usr/lib/apache2/modules/mod_mpm_event.so
-  LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
-  LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
-  ErrorLog /var/log/apache2/error.log
-  User www-data
-  Group www-data
-  DocumentRoot "/var/www/html"
-  <Directory "/var/www/html">
-      Options Indexes FollowSymLinks
-      AllowOverride None
-      Require all granted
-  </Directory>
-  EOF
+  echo -e "ServerName localhost:8080" >> "${rootfs}/etc/apache2/apache2.conf"
+  echo -e "Listen 8080" >> "${rootfs}/etc/apache2/apache2.conf"
   test "$(chroot "${rootfs}" apache2 -t 2>&1 >/dev/null)" = "Syntax OK"
   test "$(chroot "${rootfs}" a2query -M)" = "event"
   test "$(chroot "${rootfs}" a2enmod mpm_event | tail -n -1)" = "Module mpm_event already enabled"
@@ -32,11 +17,5 @@ execute: |
   test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chroot "${rootfs}" apache2ctl start
-  apt update
-  apt install net-tools iproute2 -y
-  ss -tulnp | grep apache2
-  cat "${rootfs}/var/log/apache2/error.log"
-  cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
-  find "${rootfs}" -name "libgcc_s*"
   curl -v localhost:8080
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
