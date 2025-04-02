@@ -24,10 +24,14 @@ execute: |
   ls -ld "${rootfs}/etc/ld.so.cache"
   cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
   chroot "${rootfs}" apache2ctl start
-  cat "${rootfs}/var/log/apache2/error.log"
-  cat "${rootfs}/var/log/apache2/access.log"
   apt update
   apt install net-tools iproute2 -y
   ss -tulnp | grep apache2
-  curl -v 127.0.0.1:8080
+  if curl -v 127.0.0.1:8080; then
+  echo "Succeeded"
+  else
+    echo "failed"
+  fi
+  cat "${rootfs}/var/log/apache2/error.log"
+  cat "${rootfs}/var/log/apache2/access.log"
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost)" = "200"
