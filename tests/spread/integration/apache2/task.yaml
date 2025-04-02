@@ -19,7 +19,6 @@ execute: |
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chroot "${rootfs}" apache2ctl start
   cat "${rootfs}/var/log/apache2/error.log"
-  cat /var/log/apache2/error.log"
-  cat "${rootfs}/"
+  cat /var/log/apache2/error.log
   curl -v localhost:8080
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
