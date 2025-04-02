@@ -21,11 +21,9 @@ execute: |
   chmod 755 "${rootfs}/var/www/html"
   chmod 644 "${rootfs}/var/www/html/index.html"
   ldconfig --verbose -r "${rootfs}/"
-  chroot "${rootfs}" apache2ctl start
-  apt update
-  apt install net-tools iproute2 -y
-  ss -tulnp | grep apache2
-  cat "${rootfs}/var/log/apache2/error.log"
+  ls -ld "${rootfs}/etc/ld.so.cache"
   cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
+  chroot "${rootfs}" apache2ctl start
+  cat "${rootfs}/var/log/apache2/error.log"
   curl -v localhost
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost)" = "200"
