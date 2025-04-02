@@ -22,7 +22,7 @@ execute: |
   apt install net-tools iproute2 -y
   ss -tulnp | grep apache2
   cat "${rootfs}/var/log/apache2/error.log"
-  ls -ld /var/www/html
-  ls -l /var/www/html/index.html
+  ls -ld "${rootfs}/var/www/html
+  ls -l "${rootfs}/var/www/html/index.html
   curl -v localhost
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost)" = "200"
