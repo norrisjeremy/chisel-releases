@@ -13,6 +13,7 @@ slices:
       - base-files_var
       - coreutils_bins
       - dash_bins
+      - findutils_bins
       - media-types_data
       - perl-base_bins
       - perl-base_modules

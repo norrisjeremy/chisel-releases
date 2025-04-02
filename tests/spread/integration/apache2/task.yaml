@@ -1,7 +1,7 @@
 summary: Integration tests for apache2
 
 execute: |
-  rootfs="$(install-slices apache2_bins base-passwd_data findutils_bins)"
+  rootfs="$(install-slices apache2_bins base-passwd_data)"
 
   sed -i '1a set -x' "${rootfs}/usr/sbin/apache2ctl"
   mkdir -p "${rootfs}/dev"
@@ -20,6 +20,7 @@ execute: |
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chmod 755 "${rootfs}/var/www/html"
   chmod 644 "${rootfs}/var/www/html/index.html"
+  la -ld ${rootfs}
   ls -ld ${rootfs}/var
   ls -ld ${rootfs}/var/www
   ls -ld ${rootfs}/var/www/html
