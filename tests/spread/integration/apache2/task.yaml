@@ -7,7 +7,7 @@ execute: |
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
   echo -e "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
-  echo -e "Listen 8080" >> "${rootfs}/etc/apache2/apache2.conf"
+  #echo -e "Listen 8080" >> "${rootfs}/etc/apache2/apache2.conf"
   #test "$(chroot "${rootfs}" apache2 -t 2>&1 >/dev/null)" = "Syntax OK"
   test "$(chroot "${rootfs}" a2query -M)" = "event"
   test "$(chroot "${rootfs}" a2enmod mpm_event | tail -n -1)" = "Module mpm_event already enabled"
