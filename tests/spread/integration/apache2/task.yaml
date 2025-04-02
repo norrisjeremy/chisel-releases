@@ -20,6 +20,9 @@ execute: |
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
   chmod 755 "${rootfs}/var/www/html"
   chmod 644 "${rootfs}/var/www/html/index.html"
+  ls -ld ${rootfs}/var
+  ls -ld ${rootfs}/var/www
+  ls -ld ${rootfs}/var/www/html
   ldconfig --verbose -r "${rootfs}/"
   ls -ld "${rootfs}/etc/ld.so.cache"
   cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
@@ -34,7 +37,7 @@ execute: |
   else
     echo "failed"
   fi
-  find "${rootfs}/etc/apache2" ! -type d
+  #find "${rootfs}/etc/apache2" ! -type d
   cat "${rootfs}/var/log/apache2/error.log"
   cat "${rootfs}/var/log/apache2/access.log"
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost)" = "200"
