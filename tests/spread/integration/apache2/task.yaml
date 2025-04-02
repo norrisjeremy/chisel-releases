@@ -17,7 +17,7 @@ execute: |
   test "$(chroot "${rootfs}" a2disconf charset | head -n 1)" = "Conf charset disabled."
   test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
-  cat "${rootfs}/var/log/apache2/error.log"
   chroot "${rootfs}" apache2ctl start
+  cat "${rootfs}/var/log/apache2/error.log"
   curl -v localhost:8080
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost:8080)" = "200"
