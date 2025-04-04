@@ -40,7 +40,7 @@ execute: |
   else
     echo "failed"
   fi
-  #find "${rootfs}/etc/apache2" ! -type d
+  find "${rootfs}/etc/apache2" ! -type d
   cat "${rootfs}/var/log/apache2/error.log"
   cat "${rootfs}/var/log/apache2/access.log"
   test "$(curl -s -o /dev/null -w "%{http_code}\n" localhost)" = "200"
