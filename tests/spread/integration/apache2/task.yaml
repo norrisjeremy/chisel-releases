@@ -25,7 +25,7 @@ execute: |
   # ls -ld ${rootfs}/var
   # ls -ld ${rootfs}/var/www
   # ls -ld ${rootfs}/var/www/html
-  # ldconfig --verbose -r "${rootfs}/"
+  ldconfig --verbose -r "${rootfs}/"
   # ls -ld "${rootfs}/etc/ld.so.cache"
   # cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
   chroot "${rootfs}" a2dismod mpm_event
