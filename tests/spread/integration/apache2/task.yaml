@@ -4,6 +4,7 @@ execute: |
   rootfs="$(install-slices apache2_bins base-passwd_data util-linux_cli-helpers)"
 
   sed -i '1a set -x' "${rootfs}/usr/sbin/apache2ctl"
+  sed -i '1a set -x' "${rootfs}/usr/sbin/apache2"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
   echo -e "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
@@ -30,7 +31,7 @@ execute: |
   chroot "${rootfs}" a2dismod mpm_event
   chroot "${rootfs}" a2enmod mpm_prefork
   # chroot "${rootfs}" namei -l /var/www/html/index.html
-  test "$(chroot "${rootfs}" apache2ctl -t 2>&1 >/dev/null)" = "Syntax OK"
+  test "$(chroot "${rootfs}" apache2 -t 2>&1 >/dev/null)" = "Syntax OK"
   chroot "${rootfs}" apache2ctl start
   # apt update
   # apt install net-tools iproute2 -y
