@@ -36,11 +36,11 @@ execute: |
   # apt update
   # apt install net-tools iproute2 -y
   # ss -tulnp | grep apache2
-  # if curl -v 127.0.0.1:8080; then
-  # echo "Succeeded"
-  # else
-  #   echo "failed"
-  # fi
+  if curl -v 127.0.0.1:8080; then
+  echo "Succeeded"
+  else
+    echo "failed"
+  fi
   #find "${rootfs}/etc/apache2" ! -type d
   cat "${rootfs}/var/log/apache2/error.log"
   cat "${rootfs}/var/log/apache2/access.log"
