@@ -1,16 +1,15 @@
 summary: Integration tests for apache2
 
 execute: |
-  rootfs="$(install-slices apache2_bins base-passwd_data util-linux_cli-helpers)"
+  rootfs="$(install-slices apache2_bins base-passwd_data)"
 
   sed -i '1a set -x' "${rootfs}/usr/sbin/apache2ctl"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
   echo -e "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
-  # echo -e "Listen 8080" >> "${rootfs}/etc/apache2/apache2.conf"
   test "$(chroot "${rootfs}" a2query -M)" = "event"
-  test "$(chroot "${rootfs}" a2enmod mpm_event | tail -n -1)" = "Module mpm_event already enabled"
-  test "$(chroot "${rootfs}" a2dismod mpm_prefork)" = "Module mpm_prefork already disabled"
+  test "$(chroot "${rootfs}" a2dismod mpm_event | tail -n -1)" = "Module mpm_event already disabled"
+  test "$(chroot "${rootfs}" a2enmod mpm_prefork)" = "Module mpm_prefork already enabled"
   test "$(chroot "${rootfs}" a2dissite 000-default | head -n 1)" = "Site 000-default disabled."
   test "$(chroot "${rootfs}" a2ensite 000-default | head -n 1)" = "Enabling site 000-default."
   test "$(chroot "${rootfs}" a2disconf charset | head -n 1)" = "Conf charset disabled."
@@ -21,26 +20,7 @@ execute: |
   chmod 755 "${rootfs}/var/www/html"
   chmod 644 "${rootfs}/var/www/html/index.html"
   chmod 755 ${rootfs}
-  # ls -ld ${rootfs}
-  # ls -ld ${rootfs}/var
-  # ls -ld ${rootfs}/var/www
-  # ls -ld ${rootfs}/var/www/html
-  # ldconfig --verbose -r "${rootfs}/"
-  # ls -ld "${rootfs}/etc/ld.so.cache"
-  # cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
-  chroot "${rootfs}" a2dismod mpm_event
-  chroot "${rootfs}" a2enmod mpm_prefork
-  # chroot "${rootfs}" namei -l /var/www/html/index.html
   chroot "${rootfs}" apache2ctl start
-  # apt update
-  # apt install net-tools iproute2 -y
-  # ss -tulnp | grep apache2
-  if curl -v 127.0.0.1; then
-  echo "Succeeded"
-  else
-    echo "failed"
-  fi
-  #find "${rootfs}/etc/apache2" ! -type d
   cat "${rootfs}/var/log/apache2/error.log"
   cat "${rootfs}/var/log/apache2/access.log"
   test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1)" = "200"
