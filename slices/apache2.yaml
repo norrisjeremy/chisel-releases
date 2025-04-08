@@ -87,9 +87,9 @@ slices:
         symlink: /etc/apache2/mods-available/mime.conf
       /etc/apache2/mods-enabled/mime.load:
         symlink: /etc/apache2/mods-available/mime.load
-      /etc/apache2/mods-enabled/mpm_event.conf:
+      /etc/apache2/mods-enabled/mpm_prefork.conf:
         symlink: /etc/apache2/mods-available/mpm_prefork.conf
-      /etc/apache2/mods-enabled/mpm_event.load:
+      /etc/apache2/mods-enabled/mpm_prefork.load:
         symlink: /etc/apache2/mods-available/mpm_prefork.load
       /etc/apache2/mods-enabled/negotiation.conf:
         symlink: /etc/apache2/mods-available/negotiation.conf

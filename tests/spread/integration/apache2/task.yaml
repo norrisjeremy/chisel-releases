@@ -9,7 +9,7 @@ execute: |
   echo -e "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
   test "$(chroot "${rootfs}" a2query -M)" = "prefork"
   test "$(chroot "${rootfs}" a2dismod mpm_event | tail -n -1)" = "Module mpm_event already disabled"
-  test "$(chroot "${rootfs}" a2enmod mpm_prefork)" = "Module mpm_prefork already enabled"
+  test "$(chroot "${rootfs}" a2enmod mpm_prefork | tail -n -1)" = "Module mpm_prefork already enabled"
   test "$(chroot "${rootfs}" a2dissite 000-default | head -n 1)" = "Site 000-default disabled."
   test "$(chroot "${rootfs}" a2ensite 000-default | head -n 1)" = "Enabling site 000-default."
   test "$(chroot "${rootfs}" a2disconf charset | head -n 1)" = "Conf charset disabled."
