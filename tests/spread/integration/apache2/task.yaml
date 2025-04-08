@@ -17,9 +17,9 @@ execute: |
   test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
   mkdir -p "${rootfs}/var/www/html"
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
-  # chmod 755 "${rootfs}/var/www/html"
-  # chmod 644 "${rootfs}/var/www/html/index.html"
-  # chmod 755 ${rootfs}
+  chmod 755 "${rootfs}/var/www/html"
+  chmod 644 "${rootfs}/var/www/html/index.html"
+  chmod 755 ${rootfs}
   # ls -ld ${rootfs}
   # ls -ld ${rootfs}/var
   # ls -ld ${rootfs}/var/www
