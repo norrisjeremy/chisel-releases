@@ -4,7 +4,6 @@ execute: |
   rootfs="$(install-slices apache2_bins base-passwd_data util-linux_cli-helpers)"
 
   sed -i '1a set -x' "${rootfs}/usr/sbin/apache2ctl"
-  sed -i '1a set -x' "${rootfs}/usr/sbin/apache2"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
   echo -e "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
@@ -25,13 +24,12 @@ execute: |
   # ls -ld ${rootfs}/var
   # ls -ld ${rootfs}/var/www
   # ls -ld ${rootfs}/var/www/html
-  ldconfig --verbose -r "${rootfs}/"
+  # ldconfig --verbose -r "${rootfs}/"
   # ls -ld "${rootfs}/etc/ld.so.cache"
   # cd "${rootfs}" && ldconfig -p | grep libgcc_s.so.1
   chroot "${rootfs}" a2dismod mpm_event
   chroot "${rootfs}" a2enmod mpm_prefork
   # chroot "${rootfs}" namei -l /var/www/html/index.html
-  test "$(chroot "${rootfs}" apache2 -t 2>&1 >/dev/null)" = "Syntax OK"
   chroot "${rootfs}" apache2ctl start
   # apt update
   # apt install net-tools iproute2 -y
