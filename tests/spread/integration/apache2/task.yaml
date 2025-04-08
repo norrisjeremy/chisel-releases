@@ -1,9 +1,8 @@
 summary: Integration tests for apache2
 
 execute: |
-  rootfs="$(install-slices apache2_bins base-passwd_data)"
+  rootfs="$(install-slices apache2_bins base-passwd_data util-linux_cli-helpers)"
 
-  #sed -i '1a set -x' "${rootfs}/usr/sbin/apache2ctl"
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
   echo -e "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
@@ -16,6 +15,7 @@ execute: |
   test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
   mkdir -p "${rootfs}/var/www/html"
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
+  chroot "${rootfs}" namei -l /var/www/html/index.html
   chmod 755 "${rootfs}/var/www"
   chmod 755 "${rootfs}/var/www/html"
   chmod 644 "${rootfs}/var/www/html/index.html"
@@ -24,3 +24,4 @@ execute: |
   cat "${rootfs}/var/log/apache2/error.log"
   cat "${rootfs}/var/log/apache2/access.log"
   test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1)" = "200"
+  umount -l "${rootfs}/dev"
