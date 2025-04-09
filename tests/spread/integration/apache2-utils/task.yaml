@@ -18,6 +18,7 @@ execute: |
   test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
 
   echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
+  chroot "${rootfs}" a2dismod mpm_event
   chroot "${rootfs}" a2enmod mpm_prefork
   chroot "${rootfs}" apache2ctl start
   test "$(chroot "${rootfs}" ab -n 1 -c 1 http://localhost:8080/index.html 2>/dev/null | \
