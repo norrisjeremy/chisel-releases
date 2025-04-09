@@ -20,4 +20,3 @@ execute: |
   chroot "${rootfs}" apache2ctl start
   test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1)" = "200"
   umount -l "${rootfs}/dev"
-  exit 1
