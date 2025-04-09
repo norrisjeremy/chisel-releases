@@ -23,6 +23,7 @@ execute: |
   chmod 755 "${rootfs}/var/lock/apache2"
   chmod 755 "${rootfs}/var/log/apache2"
   chmod -R 755 "${rootfs}/var/www"
+  chmod 755 "${rootfs}"
 
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
