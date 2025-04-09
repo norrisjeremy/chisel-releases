@@ -5,10 +5,10 @@ execute: |
 
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
-  echo -e "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
+  echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
   test "$(chroot "${rootfs}" a2query -M)" = "event"
   test "$(chroot "${rootfs}" a2dismod mpm_event | head -n 1)" = "Module mpm_event disabled."
-  test "$(chroot "${rootfs}" a2enmod mpm_prefork | head -n 3 | tail -n -1)" = \
+  test "$(chroot "${rootfs}" a2enmod mpm_prefork | grep -o "Enabling module mpm_prefork." )" = \
   "Enabling module mpm_prefork."
   test "$(chroot "${rootfs}" a2dissite 000-default | head -n 1)" = "Site 000-default disabled."
   test "$(chroot "${rootfs}" a2ensite 000-default | head -n 1)" = "Enabling site 000-default."
@@ -16,7 +16,8 @@ execute: |
   test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
   mkdir -p "${rootfs}/var/www/html"
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
-  chmod 755 ${rootfs}
+  chmod 755 "${rootfs}""
   chroot "${rootfs}" apache2ctl start
   test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1)" = "200"
+  chroot "${rootfs}" apache2ctl stop
   umount -l "${rootfs}/dev"
