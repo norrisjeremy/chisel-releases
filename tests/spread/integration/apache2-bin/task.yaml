@@ -24,8 +24,6 @@ execute: |
   chmod 755 "${rootfs}/var/log/apache2"
   chmod -R 755 "${rootfs}/var/www"
 
-  chroot "${rootfs}" a2enmod mpm_prefork
-
   echo "Hello, Apache!" > "${rootfs}/var/www/html/index.html"
   test "$(chroot "${rootfs}" apache2 -t 2>&1 )" = "Syntax OK"
   chroot "${rootfs}" apache2 -k start
