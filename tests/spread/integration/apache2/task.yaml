@@ -16,7 +16,7 @@ execute: |
   test "$(chroot "${rootfs}" a2enconf charset | head -n 1)" = "Enabling conf charset."
   mkdir -p "${rootfs}/var/www/html"
   echo "Hello, Apache is working!" > "${rootfs}/var/www/html/index.html"
-  chmod 755 "${rootfs}""
+  chmod 755 "${rootfs}"
   chroot "${rootfs}" apache2ctl start
   test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1)" = "200"
   chroot "${rootfs}" apache2ctl stop
