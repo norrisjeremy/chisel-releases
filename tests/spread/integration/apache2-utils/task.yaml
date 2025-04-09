@@ -4,6 +4,8 @@ execute: |
   # Installing apache2_bins to be able to do a benchmark test using ab util
   rootfs="$(install-slices apache2-utils_bins apache2-utils_scripts apache2_bins base-passwd_data)"
 
+  mkdir -p "${rootfs}/dev"
+  mount --rbind /dev "${rootfs}/dev"
   test "$(chroot "${rootfs}/" htdbm -cb test.htdbm user1 password123)" = \
     "Database test.htdbm created."
   test "$(chroot "${rootfs}/" htpasswd -cb test.htpasswd user1 passwd123 2>&1)" = \
@@ -14,43 +16,13 @@ execute: |
     > "${rootfs}/test.log"
   awk '{print $1}' "${rootfs}/test.log" | chroot "${rootfs}/" logresolve > "${rootfs}/resolved.log"
   test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
-  mkdir -p "${rootfs}/dev"
-  mount --rbind /dev "${rootfs}/dev"
-  # Check if /var/run inside chroot is a symlink and fix it
-  if [ -L "${rootfs}/var/run" ]; then
-    echo "[*] Detected symlink at ${rootfs}/var/run"
-    rm -f "${rootfs}/var/run"
-    mkdir -p "${rootfs}/var/run"
-    mkdir -p "${rootfs}/var/run/apache2"
-    chown www-data:www-data "${rootfs}/var/run/apache2"
-    chmod 755 "${rootfs}/var/run/apache2"
-  else
-    echo "[*] ${rootfs}/var/run is already a directory"
-  fi
-  echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
-  cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
-  ServerRoot "/etc/apache2"
-  ServerName localhost
-  DefaultRuntimeDir /var/run/apache2
-  PidFile /var/run/apache2/apache2.pid
-  ErrorLog /var/log/apache2/error.log
-  Listen 8080
-  LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so
-  LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
-  LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
-  User www-data
-  Group www-data
-  DocumentRoot "/var/www/html"
-  <Directory "/var/www/html">
-      Options Indexes FollowSymLinks
-      AllowOverride None
-      Require all granted
-  </Directory>
-  EOF
 
-  chroot "${rootfs}" apache2 -X -e debug
+  echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
+  chroot "${rootfs}" a2enmod mpm_prefork
+  chroot "${rootfs}" apache2ctl start
   test "$(chroot "${rootfs}" ab -n 1 -c 1 http://localhost:8080/index.html 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
+
   test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
   test "$(chroot "${rootfs}/" fcgistarter 2>&1 | grep -o 'usage')" = "usage"
   cat <<'EOF' > /tmp/fake-fcgi.sh
