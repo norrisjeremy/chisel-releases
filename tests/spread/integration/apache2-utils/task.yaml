@@ -2,7 +2,8 @@ summary: Integration tests for apache2-utils
 
 execute: |
   # Installing apache2_bins to be able to do a benchmark test using ab util
-  rootfs="$(install-slices apache2-utils_bins apache2-utils_scripts apache2_bins base-passwd_data)"
+  rootfs="$(install-slices apache2-utils_bins apache2-utils_scripts nginx_bins \
+          base-files_var base-passwd_data)"
 
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
@@ -19,12 +20,10 @@ execute: |
 
   echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
   echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
-  chroot "${rootfs}" a2dismod mpm_event
-  chroot "${rootfs}" a2enmod mpm_prefork
-  chroot "${rootfs}" apache2ctl start
-  test "$(chroot "${rootfs}" ab -n 1 -c 1 http://localhost/index.html 2>/dev/null | \
+  chroot "${rootfs}" nginx
+  test "$(chroot "${rootfs}" ab -n 1 -c 1 http://127.0.0.1/index.html 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
-
+  chroot "${rootfs}" nginx -s stop
   test "$(id -g | chroot "${rootfs}/" checkgid 2>/dev/null && echo "valid")" = "valid"
   test "$(chroot "${rootfs}/" fcgistarter 2>&1 | grep -o 'usage')" = "usage"
   cat <<'EOF' > /tmp/fake-fcgi.sh
