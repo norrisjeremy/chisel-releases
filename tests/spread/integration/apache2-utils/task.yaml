@@ -1,7 +1,7 @@
 summary: Integration tests for apache2-utils
 
 execute: |
-  # Installing apache2_bins to be able to do a benchmark test using ab util
+  # Installing nginx_bins to be able to do a benchmark test using ab util
   rootfs="$(install-slices apache2-utils_bins apache2-utils_scripts nginx_bins \
           base-files_var base-passwd_data)"
 
