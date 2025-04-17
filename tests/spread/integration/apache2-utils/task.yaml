@@ -19,7 +19,6 @@ execute: |
   test "$(cat "${rootfs}/resolved.log")" = "192.168.1.1"
 
   echo "127.0.0.1 localhost" > "${rootfs}/etc/hosts"
-  echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
   chroot "${rootfs}" nginx
   test "$(chroot "${rootfs}" ab -n 1 -c 1 http://127.0.0.1/index.html 2>/dev/null | \
   grep -o "Requests per second")" = "Requests per second"
