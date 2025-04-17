@@ -32,5 +32,7 @@ execute: |
   chmod +x /tmp/fake-fcgi.sh
   chroot "${rootfs}/" fcgistarter -c ../tmp/fake-fcgi.sh -p 9000
   test "$(ps aux | grep -o fake-fcgi.sh)" = "fake-fcgi.sh"
+  mkdir -p "${rootfs}/var/cache/apache2"
+  chmod 755 "${rootfs}/var/cache/apache2"
   test "$(chroot "${rootfs}" htcacheclean -n -v -p var/cache/apache2 -l 100M 2>&1 | \
   grep -o "Cleaned")" = "Cleaned"
