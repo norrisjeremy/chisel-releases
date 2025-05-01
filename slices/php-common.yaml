@@ -1,0 +1,36 @@
+package: php-common
+
+essential:
+  - php-common_copyright
+
+slices:
+  bins:
+    essential:
+      - base-files_bin
+      - coreutils_bins
+      - dash_bins
+      - findutils_bins
+      - libssl3t64_libs
+      - php-common_libs
+      - psmisc_bins
+      - sed_bins
+    contents:
+      /usr/sbin/phpdismod:
+      /usr/sbin/phpenmod:
+      /usr/sbin/phpquery:
+
+  libs:
+    contents:
+      /etc/cron.d/php:
+      /lib/systemd/system/phpsessionclean.service:
+      /lib/systemd/system/phpsessionclean.timer:
+      /usr/lib/php/php-fpm-socket-helper:
+      /usr/lib/php/php-helper:
+      /usr/lib/php/php-maintscript-helper:
+      /usr/lib/php/sessionclean:
+      /var/lib/php/modules: {make: true}
+      /var/lib/php/sessions/: {make: true}
+
+  copyright:
+    contents:
+      /usr/share/doc/php-common/copyright:

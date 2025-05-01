@@ -1,0 +1,31 @@
+package: php8.3-cli
+
+slices:
+  bins:
+    essential:
+      - php8.3-cli_libs
+      - ucf_bins
+    contents:
+      /etc/php/8.3/cli/conf.d/: {make: true}
+      /usr/bin/phar.phar8.3:
+      /usr/bin/phar8.3:
+      /usr/bin/phar8.3.phar:
+      /usr/bin/php8.3:
+
+  libs:
+    essential:
+      - libargon2-1_libs
+      - libc6_libs
+      - libedit2_libs
+      - libpcre2-8-0_libs
+      - libsodium23_libs
+      - libssl3t64_libs
+      - libxml2_libs
+      - media-types_data
+      - php8.3-common_libs
+      - php8.3-opcache_libs
+      - php8.3-readline_libs
+      - tzdata_zoneinfo
+      - zlib1g_libs
+    contents:
+      /usr/lib/php/8.3/sapi/cli:
