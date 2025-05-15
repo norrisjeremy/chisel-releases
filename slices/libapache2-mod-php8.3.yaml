@@ -1,0 +1,34 @@
+package: libapache2-mod-php8.3
+
+slices:
+  mods:
+    essential:
+      - apache2-bin_bins
+      - libapache2-mod-php8.3_libs
+      - php8.3-cli_bins
+      - ucf_bins
+    contents:
+      /etc/apache2/mods-available/php8.3.conf:
+      /etc/apache2/mods-available/php8.3.load:
+      /etc/apache2/mods-enabled/php8.3.conf:
+        symlink: /etc/apache2/mods-available/php8.3.conf
+      /etc/apache2/mods-enabled/php8.3.load:
+        symlink: /etc/apache2/mods-available/php8.3.load
+      /etc/php/8.3/apache2/conf.d/: {make: true}
+
+  libs:
+    essential:
+      - libargon2-1_libs
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libsodium23_libs
+      - libssl3t64_libs
+      - libxml2_libs
+      - media-types_data
+      - php8.3-common_libs
+      - php8.3-opcache_libs
+      - tzdata_zoneinfo
+      - zlib1g_libs
+    contents:
+      /usr/lib/apache2/modules/libphp8.3.so:
+      /usr/lib/php/8.3/sapi/apache2:
