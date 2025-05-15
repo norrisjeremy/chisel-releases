@@ -25,7 +25,7 @@ slices:
       /usr/lib/php/php-helper:
       /usr/lib/php/php-maintscript-helper:
       /usr/lib/php/sessionclean:
-      /var/lib/php/modules: {make: true}
+      /var/lib/php/modules/: {make: true}
       /var/lib/php/sessions/: {make: true}
 
   copyright:
