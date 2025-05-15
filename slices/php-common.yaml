@@ -21,9 +21,6 @@ slices:
 
   libs:
     contents:
-      /etc/cron.d/php:
-      /lib/systemd/system/phpsessionclean.service:
-      /lib/systemd/system/phpsessionclean.timer:
       /usr/lib/php/php-fpm-socket-helper:
       /usr/lib/php/php-helper:
       /usr/lib/php/php-maintscript-helper:

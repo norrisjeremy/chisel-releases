@@ -13,3 +13,11 @@ slices:
       /usr/share/php8.3-opcache/opcache/opcache.ini:
       /etc/php/8.3/mods-available/opcache.ini:
         symlink: /usr/share/php8.3-opcache/opcache/opcache.ini
+      /etc/php/8.3/cli/conf.d/10-opcache.ini:
+        symlink: /etc/php/8.3/mods-available/opcache.ini
+      /etc/php/8.3/cgi/conf.d/10-opcache.ini:
+        symlink: /etc/php/8.3/mods-available/opcache.ini
+      /etc/php/8.3/fpm/conf.d/10-opcache.ini:
+        symlink: /etc/php/8.3/mods-available/opcache.ini
+      /etc/php/8.3/apache2/conf.d/10-opcache.ini:
+        symlink: /etc/php/8.3/mods-available/opcache.ini
