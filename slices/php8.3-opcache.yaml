@@ -1,5 +1,8 @@
 package: php8.3-opcache
 
+essential:
+  - php8.3-common_copyright
+
 slices:
   libs:
     essential:
@@ -7,7 +10,6 @@ slices:
       - libgcc-s1_libs
       - php-common_bins
       - php8.3-common_libs
-      - ucf_bins
     contents:
       /etc/php/8.3/apache2/conf.d/10-opcache.ini:
         symlink: /etc/php/8.3/mods-available/opcache.ini
