@@ -69,7 +69,6 @@ slices:
       /var/lib/php/modules/8.3/registry/sysvshm: {text: "", mode: 0644}
       /var/lib/php/modules/8.3/registry/tokenizer: {text: "", mode: 0644}
 
-
   copyright:
     contents:
       /usr/share/doc/php8.3-common/copyright:
