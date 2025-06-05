@@ -24,8 +24,8 @@ slices:
 
   libs:
     essential:
-      - libargon2-1_libs
       - libapache2-mod-php8.3_config
+      - libargon2-1_libs
       - libc6_libs
       - libpcre2-8-0_libs
       - libsodium23_libs
