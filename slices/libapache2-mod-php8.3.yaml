@@ -4,7 +4,7 @@ essential:
   - php8.3-common_copyright
 
 slices:
-  apache2_config:
+  apache2-config:
     essential:
       - apache2_config
       - libapache2-mod-php8.3_libs
