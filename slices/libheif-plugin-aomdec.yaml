@@ -13,3 +13,7 @@ slices:
       - libstdc++6_libs
     contents:
       /usr/lib/*-linux-*/libheif/plugins/libheif-aomdec.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libheif-plugin-aomdec/copyright:
