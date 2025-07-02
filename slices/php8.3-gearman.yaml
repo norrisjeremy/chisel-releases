@@ -1,0 +1,49 @@
+package: php8.3-gearman
+
+essential:
+  - php8.3-gearman_copyright
+
+slices:
+  config:
+    essential:
+      - php8.3-gearman_libs
+      - php-common_bins
+      - php8.3-common_libs
+    contents:
+      /etc/php/8.3/mods-available/gearman.ini:
+
+  apache2-config:
+    essential:
+      - libapache2-mod-php8.3_config
+      - php8.3-gearman_config
+    contents:
+      /etc/php/8.3/apache2/conf.d/20-gearman.ini:
+        symlink: /etc/php/8.3/mods-available/gearman.ini
+
+  phpdbg-config:
+    essential:
+      - php8.3-gearman_config
+      - php8.3-phpdbg_config
+    contents:
+      /etc/php/8.3/phpdbg/conf.d/20-gearman.ini:
+        symlink: /etc/php/8.3/mods-available/gearman.ini
+
+  cli-config:
+    essential:
+      - php8.3-cli_config
+      - php8.3-gearman_config
+    contents:
+      /etc/php/8.3/cli/conf.d/20-gearman.ini:
+        symlink: /etc/php/8.3/mods-available/gearman.ini
+
+  libs:
+    essential:
+      - libapache2-mod-php8.3_apache2-config
+      - libc6_libs
+      - libgearman8t64_libs
+    contents:
+      /usr/lib/php/20230831/gearman.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/php8.3-gearman/copyright:

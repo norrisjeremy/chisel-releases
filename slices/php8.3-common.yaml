@@ -28,6 +28,11 @@ slices:
       /usr/lib/php/20230831/sysvsem.so:
       /usr/lib/php/20230831/sysvshm.so:
       /usr/lib/php/20230831/tokenizer.so:
+
+  config:
+    essential:
+      - php8.3-common_libs
+    contents:
       /usr/lib/php/8.3/php.ini-development:
       /usr/lib/php/8.3/php.ini-production:
       /usr/lib/php/8.3/php.ini-production.cli:

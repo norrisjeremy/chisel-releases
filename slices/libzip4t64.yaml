@@ -1,0 +1,18 @@
+package: libzip4t64
+
+essential:
+  - libzip4t64_copyright
+
+slices:
+  libs:
+    essential:
+      - libbz2-1.0_libs
+      - libc6_libs
+      - libssl3t64_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libzip.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libzip4t64/copyright:

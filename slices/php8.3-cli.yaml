@@ -8,11 +8,16 @@ slices:
     essential:
       - php8.3-cli_libs
     contents:
-      /etc/php/8.3/cli/conf.d/: {make: true}
-      /usr/bin/phar.phar8.3:
       /usr/bin/phar8.3:
       /usr/bin/phar8.3.phar:
       /usr/bin/php8.3:
+
+  config:
+    essential:
+      - php8.3-common_config
+    contents:
+      /etc/php/8.3/cli/conf.d/: {make: true}
+      /etc/php/8.3/cli/php.ini: {text: FIXME, mutable: true, mode: 0644}
       /var/lib/php/modules/8.3/cli/: {make: true}
       /var/lib/php/modules/8.3/cli/enabled_by_maint/: {make: true}
       /var/lib/php/modules/8.3/cli/enabled_by_maint/calendar: {text: "", mode: 0644}
@@ -34,6 +39,10 @@ slices:
       /var/lib/php/modules/8.3/cli/enabled_by_maint/sysvsem: {text: "", mode: 0644}
       /var/lib/php/modules/8.3/cli/enabled_by_maint/sysvshm: {text: "", mode: 0644}
       /var/lib/php/modules/8.3/cli/enabled_by_maint/tokenizer: {text: "", mode: 0644}
+    mutate: |
+      ini = content.read("/usr/lib/php/8.3/php.ini-production.cli")
+      content.write("/etc/php/8.3/cli/php.ini", ini)
+
 
   libs:
     essential:

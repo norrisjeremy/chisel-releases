@@ -1,0 +1,15 @@
+package: libheif-plugin-aomdec
+
+essential:
+  - libheif-plugin-aomdec_copyright
+
+slices:
+  libs:
+    essential:
+      - libaom3_libs
+      - libc6_libs
+      - libgcc-s1_libs
+      - libheif1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libheif/plugins/libheif-aomdec.so:

@@ -18,28 +18,11 @@ slices:
 
   config:
     essential:
-      - apache2-bin_bins
+      - php8.3-common_config
+      - libapache2-mod-php8.3_libs
     contents:
       /etc/php/8.3/apache2/conf.d/: {make: true}
-
-  libs:
-    essential:
-      - libapache2-mod-php8.3_config
-      - libargon2-1_libs
-      - libc6_libs
-      - libpcre2-8-0_libs
-      - libsodium23_libs
-      - libssl3t64_libs
-      - libxml2_libs
-      - media-types_data
-      - php8.3-cli_bins
-      - php8.3-common_libs
-      - php8.3-opcache_libs
-      - tzdata_zoneinfo
-      - zlib1g_libs
-    contents:
-      /usr/lib/apache2/modules/libphp8.3.so:
-      /usr/lib/php/8.3/sapi/apache2:
+      /etc/php/8.3/apache/php.ini: {text: FIXME, mutable: true, mode: 0644}
       /var/lib/php/modules/8.3/apache2/: {make: true}
       /var/lib/php/modules/8.3/apache2/enabled_by_maint/: {make: true}
       /var/lib/php/modules/8.3/apache2/enabled_by_maint/calendar: {text: "", mode: 0644}
@@ -61,3 +44,25 @@ slices:
       /var/lib/php/modules/8.3/apache2/enabled_by_maint/sysvsem: {text: "", mode: 0644}
       /var/lib/php/modules/8.3/apache2/enabled_by_maint/sysvshm: {text: "", mode: 0644}
       /var/lib/php/modules/8.3/apache2/enabled_by_maint/tokenizer: {text: "", mode: 0644}
+    mutate: |
+      ini = content.read("/usr/lib/php/8.3/php.ini-production")
+      content.write("/etc/php/8.3/apache/php.ini", ini)
+
+  libs:
+    essential:
+      - apache2-bin_bins
+      - libargon2-1_libs
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libsodium23_libs
+      - libssl3t64_libs
+      - libxml2_libs
+      - media-types_data
+      - php8.3-cli_bins
+      - php8.3-common_libs
+      - php8.3-opcache_libs
+      - tzdata_zoneinfo
+      - zlib1g_libs
+    contents:
+      /usr/lib/apache2/modules/libphp8.3.so:
+      /usr/lib/php/8.3/sapi/apache2:
