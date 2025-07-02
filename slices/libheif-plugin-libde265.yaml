@@ -8,7 +8,7 @@ slices:
     essential:
       - libc6_libs
       - libde265-0_libs
-      - lingcc-s1_libs
+      - libgcc-s1_libs
       - libheif1_libs
       - libstdc++6_libs
     contents:

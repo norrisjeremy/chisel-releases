@@ -12,7 +12,7 @@ slices:
     contents:
       /etc/php/8.3/mods-available/mysqli.ini:
         symlink: /usr/share/php8.3-mysql/mysql/mysqli.ini
-      /etc/php/8.3/mods-available/mysqld.ini:
+      /etc/php/8.3/mods-available/mysqlnd.ini:
         symlink: /usr/share/php8.3-mysql/mysql/mysqlnd.ini
       /etc/php/8.3/mods-available/pdo_mysql.ini:
         symlink: /usr/share/php8.3-mysql/mysql/pdo_mysql.ini

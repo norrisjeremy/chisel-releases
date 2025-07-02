@@ -6,8 +6,8 @@ essential:
 slices:
   config:
     essential:
-      - php8.3-bcmath_libs
       - php-common_bins
+      - php8.3-bcmath_libs
       - php8.3-common_libs
     contents:
       /etc/php/8.3/mods-available/bcmath.ini:

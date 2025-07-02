@@ -6,9 +6,9 @@ essential:
 slices:
   config:
     essential:
-      - php8.3-curl_libs
       - php-common_bins
       - php8.3-common_libs
+      - php8.3-curl_libs
     contents:
       /etc/php/8.3/mods-available/curl.ini:
         symlink: /usr/share/php8.3-curl/curl/curl.ini

@@ -23,8 +23,8 @@ slices:
 
   phpdbg-config:
     essential:
-      - php8.3-zip_config
       - php8.3-phpdbg_config
+      - php8.3-zip_config
     contents:
       /etc/php/8.3/phpdbg/conf.d/20-zip.ini:
         symlink: /etc/php/8.3/mods-available/zip.ini
