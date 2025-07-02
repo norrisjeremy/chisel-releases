@@ -43,7 +43,6 @@ slices:
       ini = content.read("/usr/lib/php/8.3/php.ini-production.cli")
       content.write("/etc/php/8.3/cli/php.ini", ini)
 
-
   libs:
     essential:
       - libargon2-1_libs
