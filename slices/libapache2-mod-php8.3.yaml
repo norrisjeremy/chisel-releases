@@ -22,7 +22,7 @@ slices:
       - php8.3-common_config
     contents:
       /etc/php/8.3/apache2/conf.d/: {make: true}
-      /etc/php/8.3/apache/php.ini: {text: FIXME, mutable: true, mode: 0644}
+      /etc/php/8.3/apache2/php.ini: {text: FIXME, mutable: true, mode: 0644}
       /var/lib/php/modules/8.3/apache2/: {make: true}
       /var/lib/php/modules/8.3/apache2/enabled_by_maint/: {make: true}
       /var/lib/php/modules/8.3/apache2/enabled_by_maint/calendar: {text: "", mode: 0644}
