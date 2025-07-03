@@ -1,7 +1,8 @@
 summary: Integration tests for php8.3-cli
 
 execute: |
-  rootfs="$(install-slices php-common_bins php8.3-common_libs php8.3-cli_bins)"
+  rootfs="$(install-slices php-common_bins php8.3-common_libs php8.3-cli_bins \
+          php8.3-opcache_config)"
 
   chroot "${rootfs}" phpquery -V
   test "$(chroot "${rootfs}" phpquery -V)" = "8.3"
