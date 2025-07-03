@@ -4,5 +4,5 @@ execute: |
   rootfs="$(install-slices php8.3-phpdbg_bins)"
 
   chroot "${rootfs}" phpdbg8.3 -h
-  echo '<?php echo "Hello World";' > "${rootfs}"/helloworld.php
-  test "$(chroot "${rootfs}" phpdbg8.3 -qrr helloworld.php)" = "Hello World"
+  echo '<?php echo "Hello World"; ?>' > "${rootfs}"/helloworld.php
+  test "$(chroot "${rootfs}" phpdbg8.3 -qrr helloworld.php 2>/dev/null)" = "Hello World"
