@@ -1,0 +1,13 @@
+summary: Integration tests for php8.3-cli
+
+execute: |
+  rootfs="$(install-slices php-common_bins php8.3-common_libs php8.3-cli_bins \
+          php8.3-opcache_config)"
+
+  chroot "${rootfs}" phpquery -V
+  test "$(chroot "${rootfs}" phpquery -V)" = "8.3"
+  chroot "${rootfs}" phpenmod -v ALL -s ALL opcache
+  test "$(chroot "${rootfs}" php8.3 -m | grep -i opcache | head -n 1)" = "Zend OPcache"
+  chroot "${rootfs}" phpdismod -v ALL -s ALL opcache
+  test "$(chroot "${rootfs}" php8.3 -m | grep -i opcache)" = ""
+  test "$(chroot "${rootfs}" phpquery -v 8.3 -S php8.3 -M)" = "cli"

@@ -1,0 +1,23 @@
+package: libgd3
+
+essential:
+  - libgd3_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libfontconfig1_libs
+      - libfreetype6_libs
+      - libheif1_libs
+      - libjpeg8_libs
+      - libpng16-16t64_libs
+      - libtiff6_libs
+      - libwebp7_libs
+      - libxpm4_libs
+    contents:
+      /usr/lib/*-linux-*/libgd.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libgd3/copyright:
