@@ -6,8 +6,8 @@ essential:
 slices:
   bins:
     essential:
-      - php8.3-cli_libs
       - php8.3-cli_config
+      - php8.3-cli_libs
     contents:
       /usr/bin/phar8.3:
       /usr/bin/phar8.3.phar:
