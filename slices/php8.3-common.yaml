@@ -1,0 +1,79 @@
+package: php8.3-common
+
+essential:
+  - php8.3-common_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libffi8_libs
+      - libssl3t64_libs
+      - php-common_libs
+    contents:
+      /usr/lib/php/20230831/calendar.so:
+      /usr/lib/php/20230831/ctype.so:
+      /usr/lib/php/20230831/exif.so:
+      /usr/lib/php/20230831/ffi.so:
+      /usr/lib/php/20230831/fileinfo.so:
+      /usr/lib/php/20230831/ftp.so:
+      /usr/lib/php/20230831/gettext.so:
+      /usr/lib/php/20230831/iconv.so:
+      /usr/lib/php/20230831/pdo.so:
+      /usr/lib/php/20230831/phar.so:
+      /usr/lib/php/20230831/posix.so:
+      /usr/lib/php/20230831/shmop.so:
+      /usr/lib/php/20230831/sockets.so:
+      /usr/lib/php/20230831/sysvmsg.so:
+      /usr/lib/php/20230831/sysvsem.so:
+      /usr/lib/php/20230831/sysvshm.so:
+      /usr/lib/php/20230831/tokenizer.so:
+
+  config:
+    essential:
+      - php8.3-common_libs
+    contents:
+      /usr/lib/php/8.3/php.ini-development:
+      /usr/lib/php/8.3/php.ini-production:
+      /usr/lib/php/8.3/php.ini-production.cli:
+      /usr/share/php8.3-common/common/calendar.ini:
+      /usr/share/php8.3-common/common/ctype.ini:
+      /usr/share/php8.3-common/common/exif.ini:
+      /usr/share/php8.3-common/common/ffi.ini:
+      /usr/share/php8.3-common/common/fileinfo.ini:
+      /usr/share/php8.3-common/common/ftp.ini:
+      /usr/share/php8.3-common/common/gettext.ini:
+      /usr/share/php8.3-common/common/iconv.ini:
+      /usr/share/php8.3-common/common/pdo.ini:
+      /usr/share/php8.3-common/common/phar.ini:
+      /usr/share/php8.3-common/common/posix.ini:
+      /usr/share/php8.3-common/common/shmop.ini:
+      /usr/share/php8.3-common/common/sockets.ini:
+      /usr/share/php8.3-common/common/sysvmsg.ini:
+      /usr/share/php8.3-common/common/sysvsem.ini:
+      /usr/share/php8.3-common/common/sysvshm.ini:
+      /usr/share/php8.3-common/common/tokenizer.ini:
+      /var/lib/php/modules/8.3/registry/: {make: true}
+      /var/lib/php/modules/8.3/registry/calendar: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/ctype: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/exif: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/ffi: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/fileinfo: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/ftp: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/gettext: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/iconv: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/opcache: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/pdo: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/phar: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/posix: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/readline: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/shmop: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/sockets: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/sysvmsg: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/sysvsem: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/sysvshm: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/registry/tokenizer: {text: "", mode: 0644}
+
+  copyright:
+    contents:
+      /usr/share/doc/php8.3-common/copyright:
