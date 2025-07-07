@@ -3,6 +3,6 @@ summary: Integration tests for php8.3-phpdbg
 execute: |
   rootfs="$(install-slices php8.3-phpdbg_bins)"
 
-  #chroot "${rootfs}" phpdbg8.3 -h
+  chroot "${rootfs}" phpdbg8.3 --version
   echo '<?php echo "Hello World"; ?>' > "${rootfs}"/helloworld.php
   test "$(chroot "${rootfs}" phpdbg8.3 -qrr helloworld.php 2>/dev/null)" = "Hello World"
