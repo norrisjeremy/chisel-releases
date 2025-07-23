@@ -152,8 +152,8 @@ slices:
   mod-mime:
     essential:
       - apache2-bin_apache2
-      - libc6_libs
       - apache2-bin_mod-media-types
+      - libc6_libs
     contents:
       /usr/lib/apache2/modules/mod_mime.so:
 
@@ -163,9 +163,9 @@ slices:
       - libc6_libs
       - media-types_data
     contents:
-      /usr/lib/apache2/modules/mod_mpm_event.so:
       /etc/apache2/mime.types:
         {symlink: /etc/mime.types}
+      /usr/lib/apache2/modules/mod_mpm_event.so:
 
   mod-mpm-event:
     essential:
