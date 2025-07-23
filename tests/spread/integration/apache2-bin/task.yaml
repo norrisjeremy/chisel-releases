@@ -52,7 +52,7 @@ execute: |
   chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -D FOREGROUND &
   APACHE_PID=$!
   sleep 10
-  test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"\
+  test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
   kill "$APACHE_PID"
   wait "$APACHE_PID" 2>/dev/null || true
   umount -l "${rootfs}/"/dev
