@@ -30,9 +30,9 @@ execute: |
 
   cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
-  ServerRoot "/etc/apache2"
+  ServerRoot "/"
   ServerName localhost
-  Listen 0.0.0.0:8080
+  Listen 127.0.0.1:8080
   LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
   LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
@@ -93,9 +93,9 @@ execute: |
 
       cat <<EOF > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
-  ServerRoot "/etc/apache2"
+  ServerRoot "/"
   ServerName localhost
-  Listen 0.0.0.0:8080
+  Listen 127.0.0.1:8080
   LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
   LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
