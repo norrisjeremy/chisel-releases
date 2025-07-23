@@ -107,7 +107,7 @@ execute: |
   EOF
       echo "Hello, Apache!" > "${rootfs}/var/www/html/index.html"
       if chroot foo apache2 -f /etc/apache2/apache2.conf -M | grep -q "$module_var"; then
-        echo "[OK] $slice_name loaded"
+          echo "[OK] $slice_name loaded"
       else
           echo "[FAIL] $slice_name not loaded"
           break
