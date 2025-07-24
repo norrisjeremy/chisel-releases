@@ -119,12 +119,14 @@ execute: |
           echo "[FAIL] $slice_name not loaded"
           exit 1
       fi
-      chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -D FOREGROUND &
+      #chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -D FOREGROUND &
+      chroot "${rootfs}/" apache2 -k start
       sleep 10
       APACHE_PID=$(cat "${rootfs}/var/run/apache2/apache2.pid")
       test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
-    kill "$APACHE_PID" 2>/dev/null || true
-    wait "$APACHE_PID" 2>/dev/null || true
+    chroot "${rootfs}/" apache2 -k stop
+    #kill "$APACHE_PID" 2>/dev/null || true
+    #wait "$APACHE_PID" 2>/dev/null || true
     umount -l "${rootfs}/dev"
     umount -l "${rootfs}/proc"
   done
