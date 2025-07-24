@@ -1,8 +1,8 @@
 summary: Integration tests for apache2-bin
 
 execute: |
-  apt update
-  apt install grep
+  #apt update
+  #apt install grep
 
   rootfs="$(install-slices apache2-bin_bins base-passwd_data)"
 
