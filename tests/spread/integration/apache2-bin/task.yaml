@@ -55,7 +55,7 @@ execute: |
   APACHE_PID=$(cat "${rootfs}/var/run/apache2/apache2.pid")
   test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
   kill "$APACHE_PID"
-  wait "$APACHE_PID" 2>/dev/null || true
+  #wait "$APACHE_PID" 2>/dev/null || true
   umount -l "${rootfs}/dev"
   python3 prepare_tests_imports.py
   for slice in $(ls cases/*.deps); do
