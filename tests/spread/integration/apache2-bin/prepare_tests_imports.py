@@ -13,7 +13,7 @@ with open(
 
 slices = slice_def.get("slices", [])
 SKIP_SLICES = {"apache2", "bins", "modules", "mod-mpm-prefork", "mod-mpm-event", "mod-mpm-worker", \
-               "mod-authz-core", "mod-dir"}
+               "mod-authz-core", "mod-dir", "mod-mime"}
 
 for slice_name, chisel_slice in slices.items():
     if slice_name in SKIP_SLICES:
