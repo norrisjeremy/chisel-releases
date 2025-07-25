@@ -117,7 +117,6 @@ execute: |
           echo "[FAIL] $slice_name not loaded"
           exit 1
       fi
-      #chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -D FOREGROUND &
       chroot "${rootfs}/" apache2 -k start
       sleep 10
       APACHE_PID=$(cat "${rootfs}/var/run/apache2/apache2.pid")
