@@ -1,38 +1,25 @@
 summary: Integration tests for apache2-bin
 
 execute: |
-  #apt update
-  #apt install grep
-
   rootfs="$(install-slices apache2-bin_bins base-passwd_data)"
 
   chroot "${rootfs}/" apache2 -v
   mkdir -p "${rootfs}/dev"
   mount --rbind /dev "${rootfs}/dev"
-  mkdir -p "${rootfs}/etc/apache2"
-  mkdir -p "${rootfs}/etc/apache2/logs"
-  mkdir -p "${rootfs}/var/run/apache2"
-  mkdir -p "${rootfs}/var/lock/apache2"
-  mkdir -p "${rootfs}/var/log/apache2"
-  mkdir -p "${rootfs}/var/www/html"
+  mkdir -p "${rootfs}/etc/apache2" "${rootfs}/etc/apache2/logs"
+  mkdir -p "${rootfs}/var/run/apache2" "${rootfs}/var/lock/apache2"
+  mkdir -p "${rootfs}/var/log/apache2" "${rootfs}/var/www/html"
 
-  chown www-data:www-data "${rootfs}/var/run/apache2"
-  chown www-data:www-data "${rootfs}/var/lock/apache2"
-  chown www-data:www-data "${rootfs}/var/log/apache2"
-  chown -R www-data:www-data "${rootfs}/var/www"
+  chown -R www-data:www-data "${rootfs}/var"
+  chmod -R 755 "${rootfs}/var"
 
-  chmod 755 "${rootfs}/var/run/apache2"
-  chmod 755 "${rootfs}/var/lock/apache2"
-  chmod 755 "${rootfs}/var/log/apache2"
-  chmod -R 755 "${rootfs}/var/www"
-  chmod 755 "${rootfs}/"
-
-  cat <<'EOF' > "${rootfs}/etc/apache2/apache2.conf"
+  port=8080
+  cat <<EOF > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
   PidFile /var/run/apache2/apache2.pid
   ServerRoot "/"
   ServerName localhost
-  Listen 127.0.0.1:8080
+  Listen 127.0.0.1:${port}
   LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
   LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
@@ -48,51 +35,53 @@ execute: |
   EOF
 
   echo "Hello, Apache!" > "${rootfs}/var/www/html/index.html"
-  test "$(chroot "${rootfs}/" apache2 -t 2>&1 )" = "Syntax OK"
+  test "$(chroot "${rootfs}/" apache2 -t 2>&1)" = "Syntax OK"
   chroot "${rootfs}/" apache2 -k start
   sleep 10
-  APACHE_PID=$(cat "${rootfs}/var/run/apache2/apache2.pid")
-  test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
+  test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:${port})" = "200"
   chroot "${rootfs}/" apache2 -k stop
   umount -l "${rootfs}/dev"
+
   python3 prepare_tests_imports.py
+
+  mkdir -p slice_results
+  i=1
+  pids=()
+
   for slice in $(ls cases/*.deps); do
+    (
       slice_name=$(basename "$slice" .deps)
       module_name=$(echo "${slice_name#mod-}" | tr '-' '_')
       module_var=${module_name}_module
       file_name=$(echo "$slice_name" | tr '-' '_').so
+      result_file="slice_results/$slice_name"
       deps=$(grep -v '^[[:space:]]*$' "cases/$slice_name.deps" | tr '\n' ' ')
-      rootfs=$(install-slices apache2-bin_${slice_name} apache2-bin_bins \
-               base-passwd_data $deps)
-      cp cases/$slice_name.deps $rootfs/
+      rootfs=$(install-slices apache2-bin_${slice_name} apache2-bin_bins base-passwd_data $deps)
+
+      port=$((8080 + i))
+      echo "[INFO] Testing $slice_name on port $port"
+
+      cp cases/$slice_name.deps "$rootfs/"
 
       mkdir -p "${rootfs}/dev" "${rootfs}/proc"
       mount --rbind /dev "${rootfs}/dev"
       mount -t proc proc "${rootfs}/proc"
-      mkdir -p "${rootfs}/etc/apache2"
-      mkdir -p "${rootfs}/etc/apache2/logs"
-      mkdir -p "${rootfs}/var/run/apache2"
-      mkdir -p "${rootfs}/var/lock/apache2"
-      mkdir -p "${rootfs}/var/log/apache2"
-      mkdir -p "${rootfs}/var/www/html"
+      mkdir -p "${rootfs}/etc/apache2" "${rootfs}/etc/apache2/logs"
+      mkdir -p "${rootfs}/var/run/apache2" "${rootfs}/var/lock/apache2"
+      mkdir -p "${rootfs}/var/log/apache2" "${rootfs}/var/www/html"
+      chown -R www-data:www-data "${rootfs}/var"
+      chmod -R 755 "${rootfs}/var"
 
-      chown www-data:www-data "${rootfs}/var/run/apache2"
-      chown www-data:www-data "${rootfs}/var/lock/apache2"
-      chown www-data:www-data "${rootfs}/var/log/apache2"
-      chown -R www-data:www-data "${rootfs}/var/www"
-
-      chmod 755 "${rootfs}/var/run/apache2"
-      chmod 755 "${rootfs}/var/lock/apache2"
-      chmod 755 "${rootfs}/var/log/apache2"
-      chmod -R 755 "${rootfs}/var/www"
-      chmod 755 "${rootfs}"
+      if [ "$slice_name" = "mod-mime" ]; then
+        touch "${rootfs}/etc/apache2/mime.types"
+      fi
 
       cat <<EOF > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
   PidFile /var/run/apache2/apache2.pid
   ServerRoot "/"
   ServerName localhost
-  Listen 127.0.0.1:8080
+  Listen 127.0.0.1:${port}
   LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
   LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
@@ -107,18 +96,63 @@ execute: |
       Require all granted
   </Directory>
   EOF
+
       echo "Hello, Apache!" > "${rootfs}/var/www/html/index.html"
-      if chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -M | grep -q "$module_var"; then
-          echo "[OK] $slice_name loaded"
-      else
-          echo "[FAIL] $slice_name not loaded"
-          exit 1
+
+      if ! chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -M | grep -q "$module_var"; then
+        echo "fail" > "$result_file"
+        echo "[FAIL] $slice_name: Module $module_var failed to load." > "${result_file}.reason"
+        exit 1
       fi
-      ldd "${rootfs}/usr/lib/apache2/modules/${file_name}"
-      chroot "${rootfs}/" apache2 -k start
-      sleep 10
-      test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
-    chroot "${rootfs}/" apache2 -k stop
-    umount -l "${rootfs}/dev"
-    umount -l "${rootfs}/proc"
+
+      chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -k start > "${rootfs}/apache_start.log" 2>&1 &
+      sleep 5
+
+      if ! test "$(curl -s -o /dev/null -w "%{http_code}" 127.0.0.1:${port})" = "200"; then
+        echo "fail" > "$result_file"
+        echo "[FAIL] $slice_name: Apache failed HTTP 200 check on port $port" > "${result_file}.reason"
+        cat "${rootfs}/apache_start.log" >> "${result_file}.reason"
+        chroot "${rootfs}/" apache2 -k stop || true
+        umount -l "${rootfs}/dev"
+        umount -l "${rootfs}/proc"
+        exit 1
+      fi
+
+      echo "ok" > "$result_file"
+      chroot "${rootfs}/" apache2 -k stop
+      umount -l "${rootfs}/dev"
+      umount -l "${rootfs}/proc"
+    ) &
+    pids+=($!)
+    i=$((i + 1))
   done
+
+  fail=0
+  for pid in "${pids[@]}"; do
+    wait "$pid" || fail=1
+  done
+
+  echo ""
+  echo "[SUMMARY] Slice Test Results:"
+  for result in slice_results/*; do
+    slice=$(basename "$result")
+    status=$(cat "$result")
+    if [ "$status" = "ok" ]; then
+      echo "[OK] PASSED: $slice"
+    else
+      echo "[FAIL] FAILED: $slice"
+      if [ -f "slice_results/$slice.reason" ]; then
+        echo "    Reason:"
+        sed 's/^/      /' "slice_results/$slice.reason"
+      fi
+    fi
+  done
+
+  if [ "$fail" -ne 0 ]; then
+    echo ""
+    echo "[ERROR] One or more slices failed."
+    exit 1
+  else
+    echo ""
+    echo "[SUCCESS] All slice tests passed."
+  fi
