@@ -120,10 +120,11 @@ execute: |
           echo "[FAIL] $slice_name not loaded"
           exit 1
       fi
-      chroot "${rootfs}/" apache2 -k start
-      sleep 10
+      chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -k start
+      sleep 5
       test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:${port})" = "200"
     chroot "${rootfs}/" apache2 -k stop
     umount -l "${rootfs}/dev"
     umount -l "${rootfs}/proc"
+    i=$((i + 1))
   done
