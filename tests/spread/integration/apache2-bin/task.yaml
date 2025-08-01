@@ -65,9 +65,6 @@ execute: |
       rootfs=$(install-slices apache2-bin_${slice_name} apache2-bin_bins \
                base-passwd_data $deps)
       cp cases/$slice_name.deps $rootfs/
-      pkill -f "chroot "${rootfs}/" apache2" 2>/dev/null || true
-      umount -l "${rootfs}/dev" 2>/dev/null || true
-      umount -l "${rootfs}/proc" 2>/dev/null || true
 
       mkdir -p "${rootfs}/dev" "${rootfs}/proc"
       mount --rbind /dev "${rootfs}/dev"
