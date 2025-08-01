@@ -90,6 +90,9 @@ execute: |
       chmod -R 755 "${rootfs}/var/www"
       chmod 755 "${rootfs}"
 
+      if [ "$slice_name" = "mod-mime" ]; then
+        touch "${rootfs}/etc/apache2/mime.types"
+      fi
       cat <<EOF > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
   PidFile /var/run/apache2/apache2.pid
@@ -117,7 +120,6 @@ execute: |
           echo "[FAIL] $slice_name not loaded"
           exit 1
       fi
-      ldd "${rootfs}/usr/lib/apache2/modules/${file_name}"
       chroot "${rootfs}/" apache2 -k start
       sleep 10
       test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:${port})" = "200"
