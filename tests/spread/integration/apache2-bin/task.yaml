@@ -117,9 +117,9 @@ execute: |
           echo "[FAIL] $slice_name not loaded"
           exit 1
       fi
+      ldd "${rootfs}/usr/lib/apache2/modules/${file_name}"
       chroot "${rootfs}/" apache2 -k start
       sleep 10
-      APACHE_PID=$(cat "${rootfs}/var/run/apache2/apache2.pid")
       test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:8080)" = "200"
     chroot "${rootfs}/" apache2 -k stop
     umount -l "${rootfs}/dev"
