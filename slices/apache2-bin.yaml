@@ -153,10 +153,7 @@ slices:
     essential:
       - apache2-bin_apache2
       - libc6_libs
-      - media-types_data
     contents:
-      /etc/apache2/mime.types:
-        {symlink: /etc/mime.types}
       /usr/lib/apache2/modules/mod_mime.so:
 
   mod-mpm-event:
