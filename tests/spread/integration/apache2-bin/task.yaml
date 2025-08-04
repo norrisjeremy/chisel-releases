@@ -69,9 +69,8 @@ execute: |
       echo "[INFO] Testing $slice_name on port $port"
       cp cases/$slice_name.deps $rootfs/
 
-      mkdir -p "${rootfs}/dev" "${rootfs}/proc"
+      mkdir -p "${rootfs}/dev"
       mount --rbind /dev "${rootfs}/dev"
-      mount -t proc proc "${rootfs}/proc"
       mkdir -p "${rootfs}/etc/apache2"
       mkdir -p "${rootfs}/etc/apache2/logs"
       mkdir -p "${rootfs}/var/run/apache2"
@@ -90,9 +89,7 @@ execute: |
       chmod -R 755 "${rootfs}/var/www"
       chmod 755 "${rootfs}"
 
-      if [ "$slice_name" = "mod-mime" ]; then
-        touch "${rootfs}/mime.types"
-      fi
+      touch "${rootfs}/mime.types"
       cat <<EOF > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
   PidFile /var/run/apache2/apache2.pid
@@ -103,6 +100,23 @@ execute: |
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
   LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
   LoadModule $module_var /usr/lib/apache2/modules/$file_name
+  EOF
+
+      if [ -f "cases/${slice_name}.deps" ]; then
+        for dep in $(grep -v '^[[:space:]]*$' "cases/${slice_name}.deps"); do
+          dep_name="${dep#mod-}"
+          mod_var="${dep_name//-/_}_module"
+          mod_file="mod_${dep_name//-/_}.so"
+          echo "LoadModule $mod_var /usr/lib/apache2/modules/$mod_file" >> "${rootfs}/etc/apache2/apache2.conf"
+        done
+      fi
+
+      main_mod_name="${slice_name#mod-}"
+      main_mod_var="${main_mod_name//-/_}_module"
+      main_mod_file="mod_${main_mod_name//-/_}.so"
+      echo "LoadModule $main_mod_var /usr/lib/apache2/modules/$main_mod_file" >> "${rootfs}/etc/apache2/apache2.conf"
+
+      cat <<EOF >> "${rootfs}/etc/apache2/apache2.conf"
   ErrorLog /etc/apache2/logs/error.log
   User www-data
   Group www-data
@@ -128,6 +142,5 @@ execute: |
       test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:${port})" = "200"
     chroot "${rootfs}/" apache2 -k stop
     umount -l "${rootfs}/dev"
-    umount -l "${rootfs}/proc"
     i=$((i + 1))
   done

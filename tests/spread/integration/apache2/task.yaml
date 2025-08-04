@@ -7,7 +7,7 @@ execute: |
   mount --rbind /dev "${rootfs}/dev"
   echo "ServerName localhost" >> "${rootfs}/etc/apache2/apache2.conf"
   test "$(chroot "${rootfs}" a2query -M)" = "event"
-  # Enabling mpm_prefork since it causes a coredump and can't locate libgcc_s.so.1
+  # Enabling mpm_prefork since mpm_event causes a coredump and can't locate libgcc_s.so.1
   # AH00051: child pid 1890 exit signal Abort (6), possible coredump in /etc/apache2
   # libgcc_s.so.1 must be installed for pthread_exit to work
   test "$(chroot "${rootfs}" a2dismod mpm_event | head -n 1)" = "Module mpm_event disabled."
