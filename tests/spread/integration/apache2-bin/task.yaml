@@ -120,7 +120,10 @@ execute: |
           echo "[FAIL] $slice_name not loaded"
           exit 1
       fi
-      chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -k start
+      if ! chroot "${rootfs}/" apache2 -f /etc/apache2/apache2.conf -k start; then
+          cat "${rootfs}/etc/apache2/logs/error.log"
+          exit 1
+      fi
       sleep 5
       test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:${port})" = "200"
     chroot "${rootfs}/" apache2 -k stop
