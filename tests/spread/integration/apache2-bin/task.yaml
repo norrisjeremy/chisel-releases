@@ -114,10 +114,7 @@ execute: |
         done < "$slice"
       fi
 
-      main_mod_name="${slice_name#mod-}"
-      main_mod_var="${main_mod_name//-/_}_module"
-      main_mod_file="mod_${main_mod_name//-/_}.so"
-      echo "LoadModule $main_mod_var /usr/lib/apache2/modules/$main_mod_file" >> "${rootfs}/etc/apache2/apache2.conf"
+      echo "LoadModule $module_var /usr/lib/apache2/modules/$file_name" >> "${rootfs}/etc/apache2/apache2.conf"
 
       cat <<EOF >> "${rootfs}/etc/apache2/apache2.conf"
   ErrorLog /etc/apache2/logs/error.log
