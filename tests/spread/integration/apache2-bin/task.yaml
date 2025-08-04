@@ -91,7 +91,7 @@ execute: |
       chmod 755 "${rootfs}"
 
       if [ "$slice_name" = "mod-mime" ]; then
-        touch "${rootfs}/etc/apache2/mime.types"
+        touch "${rootfs}/mime.types"
       fi
       cat <<EOF > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
