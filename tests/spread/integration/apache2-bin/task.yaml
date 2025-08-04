@@ -1,8 +1,6 @@
 summary: Integration tests for apache2-bin
 
 execute: |
-  #apt update
-  #apt install grep
 
   rootfs="$(install-slices apache2-bin_bins base-passwd_data)"
 
@@ -102,13 +100,18 @@ execute: |
   LoadModule $module_var /usr/lib/apache2/modules/$file_name
   EOF
 
-      if [ -f "cases/${slice_name}.deps" ]; then
-        for dep in $(grep -v '^[[:space:]]*$' "cases/${slice_name}.deps"); do
-          dep_name="${dep#mod-}"
-          mod_var="${dep_name//-/_}_module"
-          mod_file="mod_${dep_name//-/_}.so"
-          echo "LoadModule $mod_var /usr/lib/apache2/modules/$mod_file" >> "${rootfs}/etc/apache2/apache2.conf"
-        done
+      if [ -f "$slice" ]; then
+        while read -r dep; do
+            [ -z "$dep" ] && continue
+            if echo "$dep" | grep -q 'mod-'; then
+                mod_name=$(echo "$dep" | grep -o 'mod-[^[:space:]]*')
+                dep_name="${dep#mod-}"
+                mod_var="${mod_name//-/_}_module"
+                mod_file="${mod_name//-/_}.so"
+                echo "$dep_name $mod_var $mod_file"
+                echo "LoadModule $mod_var /usr/lib/apache2/modules/$mod_file" >> "${rootfs}/etc/apache2/apache2.conf"
+            fi
+        done < "$slice"
       fi
 
       main_mod_name="${slice_name#mod-}"
