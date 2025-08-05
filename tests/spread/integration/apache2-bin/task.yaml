@@ -106,7 +106,7 @@ execute: |
             if echo "$dep" | grep -q 'mod-'; then
                 mod_name=$(echo "$dep" | sed -n 's/.*mod-\(.*\)/\1/p' | tr '-' '_')
                 mod_var="${mod_name}_module"
-                mod_file="${mod_name}.so"
+                mod_file="mod_${mod_name}.so"
                 echo "LoadModule $mod_var /usr/lib/apache2/modules/$mod_file" >> "${rootfs}/etc/apache2/apache2.conf"
             fi
         done < "$slice"
