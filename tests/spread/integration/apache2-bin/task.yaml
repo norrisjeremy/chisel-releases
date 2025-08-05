@@ -61,8 +61,8 @@ execute: |
       module_var=${module_name}_module
       file_name=$(echo "$slice_name" | tr '-' '_').so
       deps=$(grep -v '^[[:space:]]*$' "cases/$slice_name.deps" | tr '\n' ' ')
-      rootfs=$(install-slices apache2-bin_${slice_name} apache2-bin_bins \
-               base-passwd_data $deps)
+      rootfs=$(install-slices apache2-bin_mod-mpm-prefork apache2-bin_mod-authz-core \
+                apache2-bin_mod-dir apache2-bin_${slice_name} base-passwd_data $deps)
       port=$((8080 + i))
       echo "[INFO] Testing $slice_name on port $port"
       cp cases/$slice_name.deps $rootfs/
