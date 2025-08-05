@@ -104,7 +104,7 @@ execute: |
         while read -r dep; do
             [ -z "$dep" ] && continue
             if echo "$dep" | grep -q 'mod-'; then
-                module_name=$(echo "$dep" | sed -n 's/.*mod-\(.*\)/\1/p' | tr '-' '_')
+                mod_name=$(echo "$dep" | sed -n 's/.*mod-\(.*\)/\1/p' | tr '-' '_')
                 mod_var="${mod_name}_module"
                 mod_file="${mod_name}.so"
                 echo "$dep_name $mod_var $mod_file"
