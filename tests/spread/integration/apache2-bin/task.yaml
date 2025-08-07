@@ -62,7 +62,7 @@ execute: |
       file_name=$(echo "$slice_name" | tr '-' '_').so
       deps=$(grep -v '^[[:space:]]*$' "cases/$slice_name.deps" | tr '\n' ' ')
       rootfs=$(install-slices apache2-bin_mod-mpm-prefork apache2-bin_mod-authz-core \
-                apache2-bin_mod-dir apache2-bin_${slice_name} base-passwd_data $deps)
+                apache2-bin_${slice_name} base-passwd_data $deps)
       port=$((8080 + i))
       echo "[INFO] Testing $slice_name on port $port"
       cp cases/$slice_name.deps $rootfs/
@@ -90,14 +90,11 @@ execute: |
       touch "${rootfs}/mime.types"
       cat <<EOF > "${rootfs}/etc/apache2/apache2.conf"
   DefaultRuntimeDir /var/run/apache2
-  PidFile /var/run/apache2/apache2.pid
   ServerRoot "/"
   ServerName localhost
   Listen 127.0.0.1:${port}
   LoadModule mpm_prefork_module /usr/lib/apache2/modules/mod_mpm_prefork.so
   LoadModule authz_core_module /usr/lib/apache2/modules/mod_authz_core.so
-  LoadModule dir_module /usr/lib/apache2/modules/mod_dir.so
-  LoadModule $module_var /usr/lib/apache2/modules/$file_name
   EOF
 
       if [ -f "$slice" ]; then
@@ -120,7 +117,6 @@ execute: |
   Group www-data
   DocumentRoot "/var/www/html"
   <Directory "/var/www/html">
-      Options Indexes FollowSymLinks
       AllowOverride None
       Require all granted
   </Directory>
@@ -137,7 +133,7 @@ execute: |
           exit 1
       fi
       sleep 5
-      test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:${port})" = "200"
+      test "$(curl -s -o /dev/null -w "%{http_code}\n" 127.0.0.1:${port}/index.html)" = "200"
     chroot "${rootfs}/" apache2 -k stop
     umount -l "${rootfs}/dev"
     i=$((i + 1))
