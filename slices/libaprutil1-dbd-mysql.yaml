@@ -8,7 +8,7 @@ slices:
     essential:
       - libaprutil1t64_libs
       - libc6_libs
-      - libmysqlclient21_libs
+      - libmysqlclient24_libs
     contents:
       /usr/lib/*-linux-*/apr-util-1/apr_dbd_mysql-1.so:
       /usr/lib/*-linux-*/apr-util-1/apr_dbd_mysql.so:
