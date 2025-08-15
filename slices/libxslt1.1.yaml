@@ -1,0 +1,17 @@
+package: libxslt1.1
+
+essential:
+  - libxslt1.1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcrypt20_libs
+      - libxml2_libs
+    contents:
+      /usr/lib/*-linux-*/libexslt.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxslt1.1/copyright:

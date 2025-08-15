@@ -1,0 +1,46 @@
+package: php8.3-gmp
+
+essential:
+  - php8.3-common_copyright
+
+slices:
+  config:
+    essential:
+      - php-common_bins
+      - php8.3-common_libs
+      - php8.3-gmp_libs
+    contents:
+      /etc/php/8.3/mods-available/gmp.ini:
+        symlink: /usr/share/php8.3-gmp/gmp/gmp.ini
+
+  apache2-config:
+    essential:
+      - libapache2-mod-php8.3_config
+      - php8.3-gmp_config
+    contents:
+      /etc/php/8.3/apache2/conf.d/20-gmp.ini:
+        symlink: /etc/php/8.3/mods-available/gmp.ini
+
+  phpdbg-config:
+    essential:
+      - php8.3-gmp_config
+      - php8.3-phpdbg_config
+    contents:
+      /etc/php/8.3/phpdbg/conf.d/20-gmp.ini:
+        symlink: /etc/php/8.3/mods-available/gmp.ini
+
+  cli-config:
+    essential:
+      - php8.3-cli_config
+      - php8.3-gmp_config
+    contents:
+      /etc/php/8.3/cli/conf.d/20-gmp.ini:
+        symlink: /etc/php/8.3/mods-available/gmp.ini
+
+  libs:
+    essential:
+      - libc6_libs
+      - libgmp10_libs
+    contents:
+      /usr/lib/php/20230831/gmp.so:
+      /usr/share/php8.3-gmp/gmp/gmp.ini:
