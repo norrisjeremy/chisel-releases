@@ -1,0 +1,16 @@
+package: libxpm4
+
+essential:
+  - libxpm4_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libx11-6_libs
+    contents:
+      /usr/lib/*-linux-*/libXpm.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libxpm4/copyright:
