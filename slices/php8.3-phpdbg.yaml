@@ -1,0 +1,63 @@
+package: php8.3-phpdbg
+
+essential:
+  - php8.3-common_copyright
+
+slices:
+  bins:
+    essential:
+      - php8.3-common_config
+      - php8.3-opcache_config
+      - php8.3-phpdbg_config
+      - php8.3-phpdbg_libs
+    contents:
+      /usr/bin/phpdbg8.3:
+
+  config:
+    essential:
+      - php8.3-common_config
+    contents:
+      /etc/php/8.3/phpdbg/conf.d/: {make: true}
+      /etc/php/8.3/phpdbg/php.ini: {text: FIXME, mutable: true, mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/: {make: true}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/: {make: true}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/calendar: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/ctype: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/exif: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/ffi: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/fileinfo: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/ftp: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/gettext: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/iconv: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/opcache: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/pdo: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/phar: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/posix: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/readline: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/shmop: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/sockets: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/sysvmsg: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/sysvsem: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/sysvshm: {text: "", mode: 0644}
+      /var/lib/php/modules/8.3/phpdbg/enabled_by_maint/tokenizer: {text: "", mode: 0644}
+    mutate: |
+      ini = content.read("/usr/lib/php/8.3/php.ini-production")
+      content.write("/etc/php/8.3/phpdbg/php.ini", ini)
+
+  libs:
+    essential:
+      - libargon2-1_libs
+      - libc6_libs
+      - libpcre2-8-0_libs
+      - libsodium23_libs
+      - libssl3t64_libs
+      - libxml2_libs
+      - media-types_data
+      - php8.3-cli_bins
+      - php8.3-common_libs
+      - php8.3-opcache_libs
+      - tzdata_zoneinfo
+      - ucf_bins
+      - zlib1g_libs
+    contents:
+      /usr/lib/php/8.3/sapi/phpdbg:

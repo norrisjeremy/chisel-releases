@@ -1,0 +1,21 @@
+package: libheif1
+
+essential:
+  - libheif1_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libgcc-s1_libs
+      - libheif-plugin-aomdec_libs
+      - libheif-plugin-libde265_libs
+      - libsharpyuv0_libs
+      - libstdc++6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/*-linux-*/libheif.so.*:
+
+  copyright:
+    contents:
+      /usr/share/doc/libheif1/copyright:
