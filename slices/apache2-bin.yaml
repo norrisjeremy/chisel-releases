@@ -1,0 +1,221 @@
+package: apache2-bin
+
+essential:
+  - apache2-bin_copyright
+
+slices:
+  apache2:
+    essential:
+      - libapr1t64_libs
+      - libaprutil1t64_libs
+      - libpcre2-8-0_libs
+    contents:
+      /usr/sbin/apache2:
+
+  bins:
+    essential:
+      - apache2-bin_apache2
+      - apache2-bin_modules
+      - apache2-bin_state
+
+  modules:
+    essential:
+      - apache2-bin_mod-access-compat
+      - apache2-bin_mod-alias
+      - apache2-bin_mod-auth-basic
+      - apache2-bin_mod-authn-core
+      - apache2-bin_mod-authn-file
+      - apache2-bin_mod-authz-core
+      - apache2-bin_mod-authz-host
+      - apache2-bin_mod-authz-user
+      - apache2-bin_mod-autoindex
+      - apache2-bin_mod-deflate
+      - apache2-bin_mod-dir
+      - apache2-bin_mod-env
+      - apache2-bin_mod-filter
+      - apache2-bin_mod-headers
+      - apache2-bin_mod-mime
+      - apache2-bin_mod-mpm-event
+      - apache2-bin_mod-mpm-prefork
+      - apache2-bin_mod-mpm-worker
+      - apache2-bin_mod-negotiation
+      - apache2-bin_mod-reqtimeout
+      - apache2-bin_mod-rewrite
+      - apache2-bin_mod-setenvif
+      - apache2-bin_mod-status
+      - libaprutil1-dbd-sqlite3_libs
+    contents:
+      /usr/lib/apache2/modules/httpd.exp:
+
+  mod-access-compat:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_access_compat.so:
+
+  mod-alias:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_alias.so:
+
+  mod-auth-basic:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_auth_basic.so:
+
+  mod-authn-core:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_authn_core.so:
+
+  mod-authn-file:
+    essential:
+      - apache2-bin_apache2
+      - apache2-bin_mod-authn-core
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_authn_file.so:
+
+  mod-authz-core:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_authz_core.so:
+
+  mod-authz-host:
+    essential:
+      - apache2-bin_apache2
+      - apache2-bin_mod-authz-core
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_authz_host.so:
+
+  mod-authz-user:
+    essential:
+      - apache2-bin_apache2
+      - apache2-bin_mod-authz-core
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_authz_user.so:
+
+  mod-autoindex:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_autoindex.so:
+
+  mod-deflate:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+      - zlib1g_libs
+    contents:
+      /usr/lib/apache2/modules/mod_deflate.so:
+
+  mod-dir:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_dir.so:
+
+  mod-env:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_env.so:
+
+  mod-filter:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_filter.so:
+
+  mod-headers:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_headers.so:
+
+  mod-mime:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_mime.so:
+
+  mod-mpm-event:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_mpm_event.so:
+
+  mod-mpm-prefork:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_mpm_prefork.so:
+
+  mod-mpm-worker:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_mpm_worker.so:
+
+  mod-negotiation:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_negotiation.so:
+
+  mod-reqtimeout:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_reqtimeout.so:
+
+  mod-rewrite:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_rewrite.so:
+
+  mod-setenvif:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_setenvif.so:
+
+  mod-status:
+    essential:
+      - apache2-bin_apache2
+      - libc6_libs
+    contents:
+      /usr/lib/apache2/modules/mod_status.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/apache2-bin/copyright:
+
+  state:
+    contents:
+      /var/lib/apache2/:
