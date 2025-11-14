@@ -1,0 +1,7 @@
+summary: Integration tests for php8.3-cli
+
+execute: |
+  rootfs="$(install-slices php8.3-cli_bins)"
+
+  chroot "${rootfs}" php8.3 -v
+  test "$(chroot "${rootfs}" php8.3 -r 'echo "Hello World";')" = "Hello World"

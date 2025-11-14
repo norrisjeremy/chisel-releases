@@ -1,0 +1,18 @@
+package: libheif-plugin-libde265
+
+essential:
+  - libheif-plugin-libde265_copyright
+
+slices:
+  libs:
+    essential:
+      - libc6_libs
+      - libde265-0_libs
+      - libgcc-s1_libs
+      - libstdc++6_libs
+    contents:
+      /usr/lib/*-linux-*/libheif/plugins/libheif-libde265.so:
+
+  copyright:
+    contents:
+      /usr/share/doc/libheif-plugin-libde265/copyright:
