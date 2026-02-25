@@ -41,6 +41,8 @@ jobs:
     env:
       main-branch-path: files-from-main
     steps:
+      - uses: actions/checkout@v4
+
       - name: Checkout main branch
         uses: actions/checkout@v4
         with:
